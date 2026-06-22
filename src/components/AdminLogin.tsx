@@ -129,24 +129,7 @@ export default function AdminLogin({ onLoginSuccess }: AdminLoginProps) {
         </form>
       </div>
 
-      {/* 2. Admin login Reference keys moved to the very bottom to avoid annoying customers */}
-      <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl space-y-2 text-xs text-zinc-400 max-w-sm mx-auto text-center" id="admin-reference-keys-footer">
-        <div className="flex items-center justify-center space-x-1.5 text-zinc-200 font-semibold mb-1">
-          <Info className="h-4 w-4 text-cyan-800" />
-          <span>Evaluation Sandbox Keys</span>
-        </div>
-        <p className="text-[11px] leading-relaxed text-zinc-400">
-          To log in as administrator and check customer inquiries, use:
-        </p>
-        <div className="flex items-center justify-center gap-4 pt-1 font-mono text-[11px]">
-          <div>
-            <span className="text-zinc-500">Username:</span> <strong className="text-zinc-100 bg-zinc-850 px-1.5 py-0.5 rounded">admin</strong>
-          </div>
-          <div>
-            <span className="text-zinc-500">Password:</span> <strong className="text-zinc-100 bg-zinc-850 px-1.5 py-0.5 rounded">admin</strong>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 }

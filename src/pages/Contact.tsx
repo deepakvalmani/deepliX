@@ -137,10 +137,10 @@ export default function Contact({ onSubmitLead, setCurrentPage }: ContactProps) 
               <div className="p-4 border border-zinc-900 bg-zinc-950/60 rounded-xl space-y-2">
                 <h4 className="text-xs font-bold text-white font-sans">Direct Email</h4>
                 <a 
-                  href="mailto:contact@deeplix.com" 
+                  href="mailto:rajvalmani@gmail.com" 
                   className="font-mono text-xs text-cyan-400 hover:underline block"
                 >
-                  contact@deeplix.com
+                  rajvalmani@gmail.com
                 </a>
                 <span className="text-[10px] text-zinc-600 font-mono block">We usually reply in less than 4 hours.</span>
               </div>
@@ -177,7 +177,7 @@ export default function Contact({ onSubmitLead, setCurrentPage }: ContactProps) 
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Acme Company"
+                    
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-cyan-500 text-zinc-100 placeholder-zinc-600 rounded px-3 py-2 text-xs focus:outline-none transition-all"
@@ -193,7 +193,7 @@ export default function Contact({ onSubmitLead, setCurrentPage }: ContactProps) 
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Operations Manager"
+                    
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-cyan-500 text-zinc-100 placeholder-zinc-600 rounded px-3 py-2 text-xs focus:outline-none transition-all"
@@ -209,7 +209,7 @@ export default function Contact({ onSubmitLead, setCurrentPage }: ContactProps) 
                   <input
                     type="text"
                     required
-                    placeholder="e.g. Jane Doe"
+                    
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-cyan-500 text-zinc-100 placeholder-zinc-600 rounded px-3 py-2 text-xs focus:outline-none transition-all"
@@ -225,7 +225,7 @@ export default function Contact({ onSubmitLead, setCurrentPage }: ContactProps) 
                   <input
                     type="email"
                     required
-                    placeholder="e.g. jane@company.com"
+                    
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full bg-zinc-950 border border-zinc-800 hover:border-zinc-700 focus:border-cyan-500 text-zinc-100 placeholder-zinc-600 rounded px-3 py-2 text-xs focus:outline-none transition-all"
