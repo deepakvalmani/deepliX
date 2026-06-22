@@ -1,0 +1,6 @@
+{
+  "name": "deepliX",
+  "description": "We build simple and reliable digital systems for modern businesses. We help with data pipelines, software setup, and simple AI tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

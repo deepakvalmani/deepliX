@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Only Light Theme - Crisp Apple-like High-Visibility Aesthetic */
+  --bg-950: #FFFFFF; /* Pure white page background */
+  --bg-900: #F4F8FC; /* Section alternate / light-blue-white subtle background */
+  --bg-850: #E9F1F8; /* Card background / element background */
+  --bg-800: #DCE5EE; /* Borders & dividers */
+  --bg-700: #C4D2E1; /* Secondary borders */
+  
+  --text-main-white: #000000; /* Pure Black (Used for headings for absolute maximum contrast) */
+  --text-main-100: #0F172A;   /* Slate-900 (Deep rich charcoal for primary body text) */
+  --text-main-200: #1E293B;   /* Slate-800 (Dark grey secondary reading text) */
+  --text-main-300: #334155;   /* Slate-700 (Clear high-visibility meta text) */
+  --text-main-400: #475569;   /* Slate-600 (Highly visible muted description text) */
+  --text-main-500: #576F88;   /* Slate-500 optimized (Clean visible captions/sub-labels) */
+  --text-main-600: #6B7F96;   /* Slate-400 optimized (Darkest grey border text placeholder, fully readable) */
+  
+  --cyan-950-custom: #F0F6FC; /* Pale blue-white */
+  --cyan-900-custom: #E1EFFE; /* Light blue accent background */
+  --cyan-850-custom: #C3DDFD; /* Border highlight */
+  --cyan-800-custom: #0066CC; /* Clear iOS-style Primary Blue accent */
+  --cyan-500-custom: #0071E3; /* Apple Blue hover highlight */
+  --cyan-400-custom: #0055B3; /* Darker blue accent */
+  
+  --red-950-custom: #FDF2F2;
+  --red-900-custom: #FDE2E2;
+  --red-400-custom: #DE2727;
+  
+  --shadow-glow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
+  --shadow-glow-intense: 0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+}
+
+@theme {
+  --color-zinc-950: var(--bg-950);
+  --color-zinc-900: var(--bg-900);
+  --color-zinc-850: var(--bg-850);
+  --color-zinc-800: var(--bg-800);
+  --color-zinc-700: var(--bg-700);
+  
+  --color-white: var(--text-main-white);
+  --color-zinc-100: var(--text-main-100);
+  --color-zinc-200: var(--text-main-200);
+  --color-zinc-300: var(--text-main-300);
+  --color-zinc-400: var(--text-main-400);
+  --color-zinc-500: var(--text-main-500);
+  --color-zinc-600: var(--text-main-600);
+  
+  --color-cyan-950: var(--cyan-950-custom);
+  --color-cyan-900: var(--cyan-900-custom);
+  --color-cyan-850: var(--cyan-850-custom);
+  --color-cyan-800: var(--cyan-800-custom);
+  --color-cyan-500: var(--cyan-500-custom);
+  --color-cyan-400: var(--cyan-400-custom);
+  
+  --color-red-950: var(--red-950-custom);
+  --color-red-900: var(--red-900-custom);
+  --color-red-400: var(--red-400-custom);
+  
+  /* Use clean sans-serif for normal style requested by the user */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  
+  --shadow-cyan-glow: var(--shadow-glow);
+  --shadow-cyan-glow-intense: var(--shadow-glow-intense);
+}
+
+body {
+  background-color: var(--bg-950);
+  color: var(--text-main-100);
+  font-family: 'Inter', -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Page transitions styling */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
