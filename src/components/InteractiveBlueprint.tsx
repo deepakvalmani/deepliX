@@ -49,10 +49,10 @@ export default function InteractiveBlueprint() {
   };
 
   return (
-    <div className="border border-zinc-800 bg-zinc-950 rounded-xl overflow-hidden shadow-2xl" id="interactive-blueprint-container">
+    <div className="border border-zinc-800/80 bg-zinc-850/30 backdrop-blur-md rounded-2xl overflow-hidden shadow-2xl" id="interactive-blueprint-container">
       
       {/* Selector Tabs */}
-      <div className="flex flex-wrap border-b border-zinc-900 bg-zinc-900/20 p-2 gap-1.5" id="blueprint-selector-tabs">
+      <div className="flex flex-wrap border-b border-zinc-800/50 bg-zinc-900/30 p-2 gap-1.5" id="blueprint-selector-tabs">
         {BLUEPRINT_CATEGORIES.map((category) => (
           <button
             key={category.id}
@@ -149,7 +149,7 @@ export default function InteractiveBlueprint() {
         </div>
 
         {/* Right Active Workspace Panel (Interactive Flowchart or Code) */}
-        <div className="lg:col-span-7 bg-zinc-950 p-6 flex flex-col justify-between overflow-hidden relative">
+        <div className="lg:col-span-7 bg-zinc-900/20 p-6 flex flex-col justify-between overflow-hidden relative border-t lg:border-t-0 lg:border-l border-zinc-800/60 backdrop-blur-sm">
           
           <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-[40px] pointer-events-none"></div>
 

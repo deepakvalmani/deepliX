@@ -77,16 +77,7 @@ export default function App() {
       console.error(e);
     }
   };
-  // Force light theme on mount
-  useEffect(() => {
-    try {
-      document.documentElement.classList.add('light');
-      document.documentElement.classList.remove('dark');
-      document.documentElement.style.colorScheme = 'light';
-    } catch (e) {
-      console.error('Failed to sync light theme on root document:', e);
-    }
-  }, []);
+
 
   // Load and seed inquiries from LocalStorage
   useEffect(() => {

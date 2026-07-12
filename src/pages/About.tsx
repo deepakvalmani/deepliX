@@ -74,7 +74,7 @@ export default function About() {
           {principles.map((p, i) => (
             <div 
               key={i}
-              className="border border-zinc-900 bg-zinc-950 p-6 rounded-xl space-y-3 relative hover:border-zinc-800 transition-all text-left"
+              className="border border-zinc-800/80 bg-zinc-850/40 backdrop-blur-md p-6 rounded-2xl space-y-3 relative hover:border-cyan-500/30 hover:bg-zinc-850/60 hover:shadow-cyan-glow-intense transition-all duration-300 text-left shadow-lg"
             >
               <div className="h-9 w-9 rounded bg-cyan-950/20 border border-cyan-900/40 flex items-center justify-center">
                 {p.icon}
@@ -88,7 +88,7 @@ export default function About() {
 
       {/* 4. Infrastructure Vetting Standards checklist */}
       <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8" id="about-standards">
-        <div className="rounded-2xl border border-zinc-900 bg-zinc-950/30 p-8 space-y-6 text-left">
+        <div className="rounded-3xl border border-zinc-800/80 bg-zinc-850/20 backdrop-blur-md p-8 space-y-6 text-left shadow-xl">
           <div className="space-y-1">
             <span className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest">Testing standards</span>
             <h3 className="text-xl font-bold text-white tracking-tight">How we test your systems</h3>
@@ -97,22 +97,22 @@ export default function About() {
             Every data pipeline or setup we build for you is thoroughly tested before it is turned on. We make sure it is fast, safe, and completely ready.
           </p>
           
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-[11px] text-zinc-400">
-            <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg space-y-2">
-              <span className="text-white font-bold block border-b border-zinc-900 pb-1.5 uppercase text-[10px]">1. Safety First</span>
-              <p className="text-zinc-500 leading-normal text-[10px]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-[11px] text-zinc-300">
+            <div className="p-4 bg-zinc-900/60 border border-zinc-800/80 rounded-xl space-y-2 backdrop-blur-sm">
+              <span className="text-white font-bold block border-b border-zinc-800/60 pb-1.5 uppercase text-[10px]">1. Safety First</span>
+              <p className="text-zinc-400 leading-normal text-[10.5px]">
                 Type-safe code that prevents errors, continuous software checks, and secure fallback paths if the internet drops.
               </p>
             </div>
-            <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg space-y-2">
-              <span className="text-white font-bold block border-b border-zinc-900 pb-1.5 uppercase text-[10px]">2. Information Isolation</span>
-              <p className="text-zinc-500 leading-normal text-[10px]">
+            <div className="p-4 bg-zinc-900/60 border border-zinc-800/80 rounded-xl space-y-2 backdrop-blur-sm">
+              <span className="text-white font-bold block border-b border-zinc-800/60 pb-1.5 uppercase text-[10px]">2. Information Isolation</span>
+              <p className="text-zinc-400 leading-normal text-[10.5px]">
                 Queue lists for problematic records, safe transaction undos, and privacy steps that hide sensitive customer details.
               </p>
             </div>
-            <div className="p-4 bg-zinc-950 border border-zinc-900 rounded-lg space-y-2">
-              <span className="text-white font-bold block border-b border-zinc-900 pb-1.5 uppercase text-[10px]">3. Easy Monitoring</span>
-              <p className="text-zinc-500 leading-normal text-[10px]">
+            <div className="p-4 bg-zinc-900/60 border border-zinc-800/80 rounded-xl space-y-2 backdrop-blur-sm">
+              <span className="text-white font-bold block border-b border-zinc-800/60 pb-1.5 uppercase text-[10px]">3. Easy Monitoring</span>
+              <p className="text-zinc-400 leading-normal text-[10.5px]">
                 Clear activity dashboards, system health checks, and instant notifications if something needs your attention.
               </p>
             </div>
@@ -122,7 +122,7 @@ export default function About() {
 
       {/* 5. Partnership Model */}
       <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center pb-8" id="about-alignment">
-        <div className="border hover:border-zinc-800 border-zinc-900 bg-zinc-950 p-8 rounded-2xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between text-left gap-6">
+        <div className="border hover:border-cyan-500/30 border-zinc-800/80 bg-zinc-850/30 backdrop-blur-md p-8 rounded-3xl relative overflow-hidden flex flex-col sm:flex-row items-center justify-between text-left gap-6 shadow-xl hover:shadow-cyan-glow-intense transition-all duration-300">
           <div className="space-y-2 max-w-xl">
             <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500 font-bold flex items-center">
               <HeartHandshake className="h-3.5 w-3.5 text-cyan-400 mr-1.5 shrink-0" />

@@ -2,34 +2,36 @@
 @import "tailwindcss";
 
 :root {
-  /* Only Light Theme - Crisp Apple-like High-Visibility Aesthetic */
-  --bg-950: #FFFFFF; /* Pure white page background */
-  --bg-900: #F4F8FC; /* Section alternate / light-blue-white subtle background */
-  --bg-850: #E9F1F8; /* Card background / element background */
-  --bg-800: #DCE5EE; /* Borders & dividers */
-  --bg-700: #C4D2E1; /* Secondary borders */
+  /* Rich Dark Blue / Indigo Glassmorphism Theme */
+  --bg-950: #020617; /* Deep Navy Black background */
+  --bg-900: #070e1c; /* Section alternate / Deep Blue background */
+  --bg-850: rgba(15, 23, 42, 0.45); /* Glassmorphic Card background (translucent blue) */
+  --bg-800: rgba(255, 255, 255, 0.08); /* Card borders / Dividers */
+  --bg-700: rgba(255, 255, 255, 0.15); /* Focus border highlights */
+
+  /* Text color variables (swapped to high-contrast white/gray scale) */
+  --text-main-white: #ffffff; /* Pure white headings */
+  --text-main-100: #f8fafc;   /* Slate-50 main body text */
+  --text-main-200: #e2e8f0;   /* Slate-200 secondary text */
+  --text-main-300: #cbd5e1;   /* Slate-300 meta text */
+  --text-main-400: #94a3b8;   /* Slate-400 description text */
+  --text-main-500: #64748b;   /* Slate-500 optimized caption text */
+  --text-main-600: #475569;   /* Slate-600 placeholder text */
+
+  /* Cyan & Indigo Accent colors for premium look */
+  --cyan-950-custom: rgba(30, 64, 175, 0.2); /* Translucent Blue accent */
+  --cyan-900-custom: #0f2d6b; /* Solid Dark Blue */
+  --cyan-850-custom: #1d4ed8; /* Royal Blue (similar to Capstone Program button) */
+  --cyan-800-custom: #2563eb; /* Vivid Blue */
+  --cyan-500-custom: #3b82f6; /* Hover / Highlight Blue */
+  --cyan-400-custom: #60a5fa; /* Active Bright Cyan/Blue */
   
-  --text-main-white: #000000; /* Pure Black (Used for headings for absolute maximum contrast) */
-  --text-main-100: #0F172A;   /* Slate-900 (Deep rich charcoal for primary body text) */
-  --text-main-200: #1E293B;   /* Slate-800 (Dark grey secondary reading text) */
-  --text-main-300: #334155;   /* Slate-700 (Clear high-visibility meta text) */
-  --text-main-400: #475569;   /* Slate-600 (Highly visible muted description text) */
-  --text-main-500: #576F88;   /* Slate-500 optimized (Clean visible captions/sub-labels) */
-  --text-main-600: #6B7F96;   /* Slate-400 optimized (Darkest grey border text placeholder, fully readable) */
-  
-  --cyan-950-custom: #F0F6FC; /* Pale blue-white */
-  --cyan-900-custom: #E1EFFE; /* Light blue accent background */
-  --cyan-850-custom: #C3DDFD; /* Border highlight */
-  --cyan-800-custom: #0066CC; /* Clear iOS-style Primary Blue accent */
-  --cyan-500-custom: #0071E3; /* Apple Blue hover highlight */
-  --cyan-400-custom: #0055B3; /* Darker blue accent */
-  
-  --red-950-custom: #FDF2F2;
-  --red-900-custom: #FDE2E2;
-  --red-400-custom: #DE2727;
-  
-  --shadow-glow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02);
-  --shadow-glow-intense: 0 4px 12px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+  --red-950-custom: rgba(127, 29, 29, 0.2);
+  --red-900-custom: #7f1d1d;
+  --red-400-custom: #ef4444;
+
+  --shadow-glow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  --shadow-glow-intense: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(37, 99, 235, 0.15);
 }
 
 @theme {
@@ -68,6 +70,11 @@
 
 body {
   background-color: var(--bg-950);
+  background-image: 
+    radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.15), transparent 40%),
+    radial-gradient(circle at 0% 100%, rgba(29, 78, 216, 0.15), transparent 40%),
+    radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.04), transparent 60%);
+  background-attachment: fixed;
   color: var(--text-main-100);
   font-family: 'Inter', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -83,3 +90,4 @@ body {
 .animate-fade-in {
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+

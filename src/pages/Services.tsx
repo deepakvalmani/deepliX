@@ -75,14 +75,14 @@ export default function Services({ setCurrentPage }: ServicesProps) {
               <button
                 key={service.id}
                 onClick={() => setSelectedServiceId(service.id)}
-                className={`w-full text-left p-4 rounded-lg border transition-all cursor-pointer flex items-center space-x-3.5 ${
+                className={`w-full text-left p-4 rounded-xl border transition-all cursor-pointer flex items-center space-x-3.5 ${
                   selectedServiceId === service.id
-                    ? 'bg-zinc-900 border-zinc-800 text-white shadow-md'
-                    : 'bg-zinc-950/20 border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/10'
+                    ? 'bg-zinc-850/60 border-zinc-700/60 backdrop-blur-sm text-white shadow-md'
+                    : 'bg-transparent border-transparent text-zinc-400 hover:text-zinc-200 hover:bg-zinc-850/20'
                 }`}
                 id={`btn-service-${service.id}`}
               >
-                <div className={`h-9 w-9 rounded flex items-center justify-center border transition-colors ${
+                <div className={`h-9 w-9 rounded-lg flex items-center justify-center border transition-colors ${
                   selectedServiceId === service.id
                     ? 'bg-cyan-950/40 border-cyan-800/80'
                     : 'bg-zinc-900/60 border-zinc-800/80'
@@ -97,7 +97,7 @@ export default function Services({ setCurrentPage }: ServicesProps) {
             ))}
 
             {/* Quick architectural consult card */}
-            <div className="border border-zinc-900 bg-zinc-950 p-4 rounded-xl mt-6 space-y-3">
+            <div className="border border-zinc-800/80 bg-zinc-850/40 backdrop-blur-md p-4 rounded-xl mt-6 space-y-3 shadow-lg">
               <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500 block">Custom Solutions</span>
               <h5 className="text-xs font-bold text-white">Have a custom software problem?</h5>
               <p className="text-[11px] text-zinc-400 leading-normal">
@@ -117,12 +117,12 @@ export default function Services({ setCurrentPage }: ServicesProps) {
           </div>
 
           {/* Right Spec Sheet Diagnostic Detail */}
-          <div className="lg:col-span-8 border border-zinc-800 bg-zinc-950/60 rounded-xl p-6 lg:p-8 space-y-8" id="services-details-pane">
+          <div className="lg:col-span-8 border border-zinc-800/80 bg-zinc-850/30 backdrop-blur-md rounded-2xl p-6 lg:p-8 space-y-8 shadow-xl" id="services-details-pane">
             
             {/* Spec sheet header */}
-            <div className="border-b border-zinc-900 pb-5 space-y-4">
+            <div className="border-b border-zinc-800/60 pb-5 space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="h-11 w-11 bg-cyan-950/30 border border-cyan-900/60 flex items-center justify-center rounded-lg">
+                <div className="h-11 w-11 bg-cyan-950/30 border border-cyan-900/60 flex items-center justify-center rounded-xl">
                   {getServiceIcon(activeService.id, "h-5 w-5 text-cyan-400")}
                 </div>
                 <div>
@@ -139,7 +139,7 @@ export default function Services({ setCurrentPage }: ServicesProps) {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Business Value focus area */}
-              <div className="space-y-3 bg-zinc-900/20 border border-zinc-900 p-5 rounded-lg text-left">
+              <div className="space-y-3 bg-zinc-850/20 border border-zinc-800/60 p-5 rounded-2xl text-left backdrop-blur-sm">
                 <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-widest font-semibold flex items-center">
                   <Sparkles className="h-3 w-3 mr-1.5" />
                   How this helps your business
@@ -147,14 +147,14 @@ export default function Services({ setCurrentPage }: ServicesProps) {
                 <p className="text-xs text-zinc-300 leading-relaxed font-sans font-medium">
                   {activeService.businessValue}
                 </p>
-                <div className="h-px bg-zinc-950 my-1"></div>
+                <div className="h-px bg-zinc-800/20 my-1"></div>
                 <div className="text-[10px] text-zinc-500 leading-normal">
                   Our setups are built to save you time and decrease manual mistakes immediately.
                 </div>
               </div>
 
               {/* Technologies list */}
-              <div className="space-y-3 bg-zinc-900/20 border border-zinc-900 p-5 rounded-lg text-left">
+              <div className="space-y-3 bg-zinc-850/20 border border-zinc-800/60 p-5 rounded-2xl text-left backdrop-blur-sm">
                 <span className="font-mono text-[10px] text-cyan-400 uppercase tracking-widest font-semibold">
                   What tools we use
                 </span>
@@ -162,13 +162,13 @@ export default function Services({ setCurrentPage }: ServicesProps) {
                   {activeService.techStack.map((tech) => (
                     <span 
                       key={tech} 
-                      className="px-2 py-1 bg-zinc-950 border border-zinc-800 text-[10px] font-mono text-zinc-400 rounded hover:border-zinc-700 hover:text-white transition-colors"
+                      className="px-2 py-1 bg-zinc-900/60 border border-zinc-800/80 text-[10px] font-mono text-zinc-300 rounded hover:border-cyan-400 hover:text-white transition-colors"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-                <div className="h-px bg-zinc-950 my-1"></div>
+                <div className="h-px bg-zinc-800/20 my-1"></div>
                 <div className="text-[10px] text-zinc-500 leading-normal">
                   We use safe, well-tested technologies that are fast and reliable.
                 </div>
@@ -212,7 +212,7 @@ export default function Services({ setCurrentPage }: ServicesProps) {
 
       {/* CTA section bottom */}
       <section className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center" id="services-bottom-cta">
-        <div className="border border-zinc-900 bg-zinc-950 rounded-xl p-8 relative overflow-hidden">
+        <div className="border border-zinc-800/80 bg-zinc-850/30 backdrop-blur-md rounded-2xl p-8 relative overflow-hidden shadow-xl">
           <div className="space-y-4 max-w-2xl mx-auto">
             <h3 className="text-xl font-bold text-white tracking-tight">Need a custom digital system?</h3>
             <p className="text-xs text-zinc-400 leading-relaxed">

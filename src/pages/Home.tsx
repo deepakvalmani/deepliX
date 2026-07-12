@@ -60,15 +60,21 @@ export default function Home({ setCurrentPage }: HomeProps) {
       
       {/* 1. HERO SECTION */}
       <section className="relative pt-6 overflow-hidden" id="section-hero">
-        {/* Subtle light blue-gray grid pattern background */}
-        <div className="absolute inset-x-0 top-0 h-[600px] bg-[linear-gradient(to_right,#e5edf6_1px,transparent_1px),linear-gradient(to_bottom,#e5edf6_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-        <div className="absolute top-12 left-1/4 w-[340px] h-[140px] bg-cyan-950/5 rounded-full blur-[80px] pointer-events-none"></div>
+        {/* Subtle dark grid pattern background */}
+        <div className="absolute inset-x-0 top-0 h-[600px] bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        <div className="absolute top-12 left-1/4 w-[340px] h-[140px] bg-cyan-500/10 rounded-full blur-[80px] pointer-events-none"></div>
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 border border-zinc-800 rounded-3xl overflow-hidden bg-zinc-950/80 backdrop-blur-sm shadow-cyan-glow-intense">
+          <div className="grid grid-cols-1 lg:grid-cols-12 border border-zinc-800/80 rounded-3xl overflow-hidden bg-zinc-900/40 backdrop-blur-md shadow-cyan-glow-intense">
             
             {/* Left Column (Main Hero Content) */}
-            <div className="lg:col-span-7 flex flex-col justify-center p-8 sm:p-12 lg:p-16 border-b lg:border-b-0 lg:border-r border-zinc-800 text-left">
+            <div className="lg:col-span-7 flex flex-col justify-center p-8 sm:p-12 lg:p-16 border-b lg:border-b-0 lg:border-r border-zinc-800/80 text-left">
+              <div className="flex mb-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-semibold bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 tracking-wider uppercase font-mono">
+                  ✨ FOR FORWARD-LOOKING TEAMS
+                </span>
+              </div>
+
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
                 We Build<br />
                 Simple Digital Systems<br />
@@ -79,20 +85,29 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 We design and build clean data pipelines, automatic tool connectors, and simple AI assistants. This stops slow, repetitive work and saves your team time.
               </p>
               
-              <div className="flex flex-wrap items-center gap-6">
+              <div className="flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => handleNavClick('contact')}
-                  className="px-6 py-3.5 bg-cyan-800 hover:bg-cyan-500 text-white font-bold uppercase tracking-wider text-xs transition-all flex items-center space-x-2 cursor-pointer rounded shadow-sm"
+                  className="px-6 py-3.5 bg-white hover:bg-zinc-100 text-zinc-950 font-bold uppercase tracking-wider text-xs transition-all flex items-center space-x-2 cursor-pointer rounded-full shadow-lg"
                 >
                   <span>Start today</span>
                   <ArrowRight className="h-4 w-4" />
                 </button>
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-zinc-500 uppercase tracking-widest mb-0.5 font-semibold">Active Systems</span>
-                  <span className="font-sans text-sm text-zinc-300 font-semibold flex items-center">
-                    <span className="w-1.5 h-1.5 bg-cyan-800 rounded-full mr-1.5"></span>
-                    42+ Active Systems
-                  </span>
+                <button
+                  onClick={() => handleNavClick('services')}
+                  className="px-6 py-3.5 bg-zinc-900/60 hover:bg-zinc-800/80 border border-zinc-800 hover:border-zinc-700 text-white font-bold uppercase tracking-wider text-xs transition-all flex items-center space-x-2 cursor-pointer rounded-full"
+                >
+                  <span>Our Services</span>
+                </button>
+                
+                <div className="flex items-center ml-2 border-l border-zinc-800 pl-4 h-10">
+                  <div className="flex flex-col text-left">
+                    <span className="text-[9px] text-zinc-500 uppercase tracking-widest mb-0.5 font-semibold">Active Systems</span>
+                    <span className="font-sans text-xs text-zinc-300 font-semibold flex items-center">
+                      <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-1.5 animate-pulse"></span>
+                      42+ Active Systems
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -167,7 +182,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
 
       {/* 2. PROBLEM STATEMENT SECTION */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" id="section-problem">
-        <div className="border border-zinc-900 bg-zinc-950/30 rounded-2xl p-8 lg:p-12 relative overflow-hidden">
+        <div className="border border-zinc-800 bg-zinc-850/20 backdrop-blur-md rounded-3xl p-8 lg:p-12 relative overflow-hidden">
           
           <div className="absolute top-0 right-0 w-32 h-32 bg-red-500/5 rounded-full blur-[60px] pointer-events-none"></div>
 
@@ -193,7 +208,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
             {/* Right bullet blocks */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
               
-              <div className="bg-zinc-950 border border-zinc-900 p-5 rounded-xl space-y-2 text-left">
+              <div className="bg-zinc-850/50 border border-zinc-800/80 p-5 rounded-2xl space-y-2 text-left backdrop-blur-sm">
                 <div className="h-8 w-8 rounded bg-red-950/20 border border-red-900/40 flex items-center justify-center">
                   <ServerCrash className="h-4 w-4 text-red-400" />
                 </div>
@@ -203,7 +218,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 </p>
               </div>
 
-              <div className="bg-zinc-950 border border-zinc-900 p-5 rounded-xl space-y-2 text-left">
+              <div className="bg-zinc-850/50 border border-zinc-800/80 p-5 rounded-2xl space-y-2 text-left backdrop-blur-sm">
                 <div className="h-8 w-8 rounded bg-red-950/20 border border-red-900/40 flex items-center justify-center">
                   <Clock className="h-4 w-4 text-red-200" />
                 </div>
@@ -213,7 +228,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 </p>
               </div>
 
-              <div className="bg-zinc-950 border border-zinc-900 p-5 rounded-xl space-y-2 text-left">
+              <div className="bg-zinc-850/50 border border-zinc-800/80 p-5 rounded-2xl space-y-2 text-left backdrop-blur-sm">
                 <div className="h-8 w-8 rounded bg-red-950/20 border border-red-900/40 flex items-center justify-center">
                   <Layers className="h-4 w-4 text-red-200" />
                 </div>
@@ -223,7 +238,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
                 </p>
               </div>
 
-              <div className="bg-zinc-950 border border-zinc-900 p-5 rounded-xl space-y-2 text-left">
+              <div className="bg-zinc-850/50 border border-zinc-800/80 p-5 rounded-2xl space-y-2 text-left backdrop-blur-sm">
                 <div className="h-8 w-8 rounded bg-red-950/20 border border-red-900/40 flex items-center justify-center">
                   <Wrench className="h-4 w-4 text-red-200" />
                 </div>
@@ -257,10 +272,10 @@ export default function Home({ setCurrentPage }: HomeProps) {
           {focusAreas.map((area, idx) => (
             <div 
               key={idx}
-              className="border border-zinc-900 bg-zinc-950 p-6 rounded-xl space-y-4 hover:border-zinc-800 transition-all flex flex-col justify-between text-left"
+              className="border border-zinc-800/80 bg-zinc-850/40 backdrop-blur-md p-6 rounded-2xl space-y-4 hover:border-cyan-500/30 hover:bg-zinc-850/60 transition-all duration-300 flex flex-col justify-between text-left shadow-lg hover:shadow-cyan-glow-intense"
             >
               <div className="space-y-4">
-                <div className="h-10 w-10 bg-cyan-950/40 border border-cyan-900/50 flex items-center justify-center rounded">
+                <div className="h-10 w-10 bg-cyan-950/40 border border-cyan-900/50 flex items-center justify-center rounded-xl">
                   {area.icon}
                 </div>
                 <h3 className="text-base font-bold text-white tracking-tight">{area.title}</h3>
@@ -269,7 +284,7 @@ export default function Home({ setCurrentPage }: HomeProps) {
               
               <button 
                 onClick={() => handleNavClick('services')}
-                className="text-left font-mono text-[11px] text-cyan-400 hover:text-white flex items-center space-x-1 border-t border-zinc-900/80 pt-4 mt-2 cursor-pointer w-full"
+                className="text-left font-mono text-[11px] text-cyan-400 hover:text-white flex items-center space-x-1 border-t border-zinc-800/80 pt-4 mt-2 cursor-pointer w-full"
               >
                 <span>Learn More</span>
                 <ArrowRight className="h-3 w-3" />
