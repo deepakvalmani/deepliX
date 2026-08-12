@@ -11,6 +11,7 @@ import { AdminView } from "./pages/AdminView";
 import { PrivacyPolicyView } from "./pages/PrivacyPolicyView";
 import { TermsView } from "./pages/TermsView";
 import { CookiePolicyView } from "./pages/CookiePolicyView";
+import { CareersView } from "./pages/CareersView";
 import { CookieBanner } from "./components/CookieBanner";
 import { BlueprintBuilder } from "./components/BlueprintBuilder";
 
@@ -57,6 +58,7 @@ export default function App() {
         {currentView === "how-we-work" && <HowWeWorkView onNavigate={handleNavigate} />}
         {currentView === "systems-lab" && <SystemsLabView onNavigate={handleNavigate} />}
         {currentView === "about" && <AboutView onNavigate={handleNavigate} />}
+        {currentView === "careers" && <CareersView onNavigate={handleNavigate} />}
         {currentView === "admin" && <AdminView onNavigate={handleNavigate} />}
         {currentView === "privacy" && <PrivacyPolicyView onNavigate={handleNavigate} />}
         {currentView === "terms" && <TermsView onNavigate={handleNavigate} />}

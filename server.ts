@@ -13,6 +13,7 @@ const __dirname = path.dirname(__filename);
 // Local file storage setup
 const DATA_DIR = path.join(process.cwd(), 'data');
 const LOCAL_STORE_PATH = path.join(DATA_DIR, 'submissions.json');
+const LOCAL_APPLICATIONS_PATH = path.join(DATA_DIR, 'applications.json');
 
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -20,6 +21,10 @@ if (!fs.existsSync(DATA_DIR)) {
 
 if (!fs.existsSync(LOCAL_STORE_PATH)) {
   fs.writeFileSync(LOCAL_STORE_PATH, JSON.stringify([]));
+}
+
+if (!fs.existsSync(LOCAL_APPLICATIONS_PATH)) {
+  fs.writeFileSync(LOCAL_APPLICATIONS_PATH, JSON.stringify([]));
 }
 
 async function startServer() {
@@ -78,6 +83,56 @@ async function startServer() {
     }
 
     return { savedToMongo, mongoError };
+  }
+
+  // Job application database helper
+  async function saveApplication(appRecord: {
+    id: string;
+    name: string;
+    email: string;
+    phone?: string;
+    role: string;
+    experienceYears?: string;
+    linkedin?: string;
+    github?: string;
+    portfolio?: string;
+    coverLetter?: string;
+    resumeFileName?: string;
+    resumeDataUrl?: string;
+    resumeText?: string;
+    status: string;
+    createdAt: string;
+  }) {
+    let savedToMongo = false;
+    const mongoUri = process.env.MONGODB_URI;
+
+    if (mongoUri) {
+      try {
+        const client = new MongoClient(mongoUri);
+        await client.connect();
+        const dbName = process.env.MONGODB_DB_NAME || 'deeplix_db';
+        const collection = client.db(dbName).collection('job_applications');
+        await collection.insertOne({
+          ...appRecord,
+          _insertedAt: new Date(),
+        });
+        await client.close();
+        savedToMongo = true;
+      } catch (err: any) {
+        console.error('[Careers DB Error] Mongo save failed:', err.message);
+      }
+    }
+
+    try {
+      const raw = fs.readFileSync(LOCAL_APPLICATIONS_PATH, 'utf-8');
+      const records = JSON.parse(raw);
+      records.unshift(appRecord);
+      fs.writeFileSync(LOCAL_APPLICATIONS_PATH, JSON.stringify(records, null, 2));
+    } catch (err: any) {
+      console.error('[Careers DB Error] Local JSON file save failed:', err.message);
+    }
+
+    return { savedToMongo };
   }
 
   // Helper function to handle sending emails
@@ -206,6 +261,166 @@ async function startServer() {
         error: 'An error occurred while saving your message.',
         details: err.message,
       });
+    }
+  });
+
+  // Job application submission endpoint
+  app.post('/api/careers/apply', async (req, res) => {
+    try {
+      const {
+        name,
+        email,
+        phone,
+        role,
+        experienceYears,
+        linkedin,
+        github,
+        portfolio,
+        coverLetter,
+        resumeFileName,
+        resumeDataUrl,
+        resumeText,
+      } = req.body;
+
+      if (!name || !email || !role) {
+        return res.status(400).json({ error: 'Name, email, and position role are required.' });
+      }
+
+      const applicationId = `APP_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`;
+      const appRecord = {
+        id: applicationId,
+        name,
+        email,
+        phone: phone || '',
+        role: role || 'General Engineering Inquiry',
+        experienceYears: experienceYears || 'Not specified',
+        linkedin: linkedin || '',
+        github: github || '',
+        portfolio: portfolio || '',
+        coverLetter: coverLetter || '',
+        resumeFileName: resumeFileName || 'Resume Document',
+        resumeDataUrl: resumeDataUrl || '',
+        resumeText: resumeText || '',
+        status: 'new',
+        createdAt: new Date().toISOString(),
+      };
+
+      console.log('[Job Application Received]:', { id: applicationId, name, email, role });
+
+      const dbStatus = await saveApplication(appRecord);
+
+      return res.status(200).json({
+        success: true,
+        applicationId,
+        message: 'Application received successfully.',
+        mongoSaved: dbStatus.savedToMongo,
+      });
+    } catch (err: any) {
+      console.error('[Careers API Error]:', err);
+      return res.status(500).json({
+        error: 'Failed to process job application.',
+        details: err.message,
+      });
+    }
+  });
+
+  // Get list of job applications for admin dashboard
+  app.get('/api/applications', async (_req, res) => {
+    try {
+      const mongoUri = process.env.MONGODB_URI;
+      let records = [];
+
+      if (mongoUri) {
+        try {
+          const client = new MongoClient(mongoUri);
+          await client.connect();
+          const dbName = process.env.MONGODB_DB_NAME || 'deeplix_db';
+          const collection = client.db(dbName).collection('job_applications');
+          records = await collection.find({}).sort({ createdAt: -1 }).toArray();
+          await client.close();
+          return res.json({ source: 'mongodb', count: records.length, applications: records });
+        } catch (mErr: any) {
+          console.error('[Applications API] Mongo fetch failed:', mErr.message);
+        }
+      }
+
+      if (fs.existsSync(LOCAL_APPLICATIONS_PATH)) {
+        const raw = fs.readFileSync(LOCAL_APPLICATIONS_PATH, 'utf-8');
+        records = JSON.parse(raw);
+      }
+
+      return res.json({ source: 'local_file', count: records.length, applications: records });
+    } catch (err: any) {
+      res.status(500).json({ error: 'Failed to fetch job applications', details: err.message });
+    }
+  });
+
+  // Update job application status
+  app.patch('/api/applications/:id/status', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status } = req.body;
+
+      if (!status) {
+        return res.status(400).json({ error: 'Status is required' });
+      }
+
+      // Update in local file
+      if (fs.existsSync(LOCAL_APPLICATIONS_PATH)) {
+        const raw = fs.readFileSync(LOCAL_APPLICATIONS_PATH, 'utf-8');
+        let records = JSON.parse(raw);
+        records = records.map((r: any) => (r.id === id ? { ...r, status } : r));
+        fs.writeFileSync(LOCAL_APPLICATIONS_PATH, JSON.stringify(records, null, 2));
+      }
+
+      // Update in Mongo if present
+      const mongoUri = process.env.MONGODB_URI;
+      if (mongoUri) {
+        try {
+          const client = new MongoClient(mongoUri);
+          await client.connect();
+          const dbName = process.env.MONGODB_DB_NAME || 'deeplix_db';
+          await client.db(dbName).collection('job_applications').updateOne({ id }, { $set: { status } });
+          await client.close();
+        } catch (mErr: any) {
+          console.error('[Applications API] Mongo update status failed:', mErr.message);
+        }
+      }
+
+      return res.json({ success: true, id, status });
+    } catch (err: any) {
+      res.status(500).json({ error: 'Failed to update application status', details: err.message });
+    }
+  });
+
+  // Delete job application
+  app.delete('/api/applications/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      if (fs.existsSync(LOCAL_APPLICATIONS_PATH)) {
+        const raw = fs.readFileSync(LOCAL_APPLICATIONS_PATH, 'utf-8');
+        let records = JSON.parse(raw);
+        records = records.filter((r: any) => r.id !== id);
+        fs.writeFileSync(LOCAL_APPLICATIONS_PATH, JSON.stringify(records, null, 2));
+      }
+
+      const mongoUri = process.env.MONGODB_URI;
+      if (mongoUri) {
+        try {
+          const client = new MongoClient(mongoUri);
+          await client.connect();
+          const dbName = process.env.MONGODB_DB_NAME || 'deeplix_db';
+          await client.db(dbName).collection('job_applications').deleteOne({ id });
+          await client.close();
+        } catch (mErr: any) {
+          console.error('[Applications API] Mongo delete failed:', mErr.message);
+        }
+      }
+
+      return res.json({ success: true, id });
+    } catch (err: any) {
+      res.status(500).json({ error: 'Failed to delete application', details: err.message });
     }
   });
 

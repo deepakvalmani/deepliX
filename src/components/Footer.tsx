@@ -48,6 +48,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 ["Systems Lab", "systems-lab"],
                 ["How We Work", "how-we-work"],
                 ["About deepliX", "about"],
+                ["Careers & Jobs", "careers"],
                 ["Contact", "contact"],
                 ["Admin Inbox", "admin"],
                 ["Privacy Policy", "privacy"],
