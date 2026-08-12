@@ -154,7 +154,7 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigate }) => {
 
           <h1 className="mt-6 text-2xl font-extrabold text-[#0F172A]">Protected Admin Inbox</h1>
           <p className="mt-2 text-xs leading-relaxed text-slate-500">
-            Enter admin passcode to view locally saved contact form submissions and lead records.
+            Enter admin passcode to view contact form submissions and lead records.
           </p>
 
           <form onSubmit={handleLogin} className="mt-6 space-y-4">
