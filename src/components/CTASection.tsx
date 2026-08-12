@@ -46,7 +46,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ onNavigate }) => {
                 data-testid="cta-explore-capabilities-button"
                 className="inline-flex items-center gap-2 rounded-full border border-white/35 px-7 py-3.5 text-sm font-bold text-white transition-colors duration-300 hover:border-white hover:bg-white/10"
               >
-                Explore Capabilities
+                Explore What we do
               </button>
             </div>
           </div>

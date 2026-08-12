@@ -29,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
   }, []);
 
   const navLinks = [
-    { id: "capabilities", label: "Capabilities" },
+    { id: "capabilities", label: "What we do" },
     { id: "blueprint", label: "Blueprint Tool" },
     { id: "how-we-work", label: "How We Work" },
     { id: "systems-lab", label: "Systems Lab" },

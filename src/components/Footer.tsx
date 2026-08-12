@@ -22,8 +22,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </p>
           </div>
 
-          <nav aria-label="Capabilities">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">Capabilities</p>
+          <nav aria-label="What we do">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">What we do</p>
             <ul className="mt-5 space-y-3 text-sm font-medium">
               {capabilities.map((c) => (
                 <li key={c.slug}>
