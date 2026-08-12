@@ -221,7 +221,7 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigate }) => {
 
           <h1 className="mt-6 text-2xl font-extrabold text-[#0F172A]">Protected Admin Inbox</h1>
           <p className="mt-2 text-xs leading-relaxed text-slate-500">
-            Enter admin passcode to view locally saved contact form submissions and lead records.
+            Enter admin passcode to view contact form submissions and lead records.
           </p>
 
           <form onSubmit={handleLogin} className="mt-6 space-y-4">
@@ -233,13 +233,13 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigate }) => {
                 type="password"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
-                placeholder="Enter passcode (default: deeplix2026)"
+                placeholder="Enter passcode"
                 data-testid="admin-passcode-input"
                 className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
               {passError && (
                 <p className="mt-1.5 text-xs text-rose-600 font-medium">
-                  Incorrect passcode. (Default passcode: <code>deeplix2026</code>)
+                  Incorrect passcode try again
                 </p>
               )}
             </div>
