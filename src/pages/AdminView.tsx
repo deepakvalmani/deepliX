@@ -172,7 +172,7 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigate }) => {
               />
               {passError && (
                 <p className="mt-1.5 text-xs text-rose-600 font-medium">
-                  Incorrect passcode. (Default passcode: <code>deeplix2026</code>)
+                  Incorrect passcode Try again
                 </p>
               )}
             </div>
