@@ -50,10 +50,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 ["About deepliX", "about"],
                 ["Careers & Jobs", "careers"],
                 ["Contact", "contact"],
-                ["Admin Inbox", "admin"],
-                ["Privacy Policy", "privacy"],
-                ["Cookie Policy", "cookies"],
-                ["Terms of Service", "terms"],
               ].map(([label, id]) => (
                 <li key={id}>
                   <button
