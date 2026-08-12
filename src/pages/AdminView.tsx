@@ -166,7 +166,7 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigate }) => {
                 type="password"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
-                placeholder="Enter passcode (default: deeplix2026)"
+                placeholder="Enter passcode "//(default: deeplix2026)
                 data-testid="admin-passcode-input"
                 className="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 text-sm text-[#0F172A] focus:border-blue-600 focus:outline-none focus:ring-1 focus:ring-blue-600"
               />
