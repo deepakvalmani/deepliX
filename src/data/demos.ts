@@ -8,7 +8,7 @@ export interface SystemDemo {
   pastel: string;
   desc: string;
   tags: string[];
-  image?: string;
+  image: string;
   metrics?: { label: string; value: string }[];
 }
 
@@ -21,10 +21,12 @@ export const demos: SystemDemo[] = [
     pastel: "#EFF6FF",
     desc: "Scheduled reports generated automatically from live business data — no manual exports, no Friday spreadsheet compilation ritual.",
     tags: ["Reporting", "Automation", "Scheduled Jobs"],
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
     metrics: [
       { label: "Compilation time", value: "0 mins" },
-      { label: "Data accuracy", value: "100%" }
-    ]
+      { label: "Data accuracy", value: "100%" },
+    ],
   },
   {
     id: "data-pipeline",
@@ -38,8 +40,8 @@ export const demos: SystemDemo[] = [
       "https://images.unsplash.com/photo-1644088379091-d574269d422f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
     metrics: [
       { label: "Sync frequency", value: "Realtime" },
-      { label: "Schema validation", value: "Strict" }
-    ]
+      { label: "Schema validation", value: "Strict" },
+    ],
   },
   {
     id: "ai-assistant",
@@ -49,10 +51,12 @@ export const demos: SystemDemo[] = [
     pastel: "#F5F3FF",
     desc: "Ask questions against company documents and get cited, verifiable answers using retrieval-augmented generation (RAG).",
     tags: ["RAG", "LLM", "Knowledge Base"],
+    image:
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
     metrics: [
       { label: "Search latency", value: "<1.2s" },
-      { label: "Citation rate", value: "100%" }
-    ]
+      { label: "Citation rate", value: "100%" },
+    ],
   },
   {
     id: "operations-dashboard",
@@ -62,10 +66,12 @@ export const demos: SystemDemo[] = [
     pastel: "#ECFDF5",
     desc: "Real-time visibility across orders, active tasks, and cross-departmental teams — one screen instead of five separate logins.",
     tags: ["Dashboards", "Real-time", "KPIs"],
+    image:
+      "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
     metrics: [
       { label: "Data freshness", value: "Sub-second" },
-      { label: "Unified tools", value: "6 in 1" }
-    ]
+      { label: "Unified tools", value: "6 in 1" },
+    ],
   },
   {
     id: "crm-integration",
@@ -76,10 +82,10 @@ export const demos: SystemDemo[] = [
     desc: "Bi-directional synchronization between CRM, accounting, and internal tools. Enter customer details once, update everywhere.",
     tags: ["CRM", "Sync", "Custom APIs"],
     image:
-      "https://images.unsplash.com/photo-1727434032773-af3cd98375ba?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?crop=entropy&cs=srgb&fm=jpg&q=85&w=800",
     metrics: [
       { label: "Conflict resolution", value: "Automated" },
-      { label: "API Uptime", value: "99.99%" }
-    ]
+      { label: "API Uptime", value: "99.99%" },
+    ],
   },
 ];

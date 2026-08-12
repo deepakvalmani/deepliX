@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 import { Logo } from "./Navbar";
 import { capabilities } from "../data/capabilities";
 
@@ -40,22 +40,29 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </ul>
           </nav>
 
-          <nav aria-label="Company">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">Company</p>
+          <nav aria-label="Company & Legal">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-slate-500">Company &amp; Legal</p>
             <ul className="mt-5 space-y-3 text-sm font-medium">
               {[
-                ["About deepliX", "about"],
-                ["How We Work", "how-we-work"],
+                ["Blueprint Tool", "blueprint"],
                 ["Systems Lab", "systems-lab"],
+                ["How We Work", "how-we-work"],
+                ["About deepliX", "about"],
                 ["Contact", "contact"],
+                ["Admin Inbox", "admin"],
+                ["Privacy Policy", "privacy"],
+                ["Cookie Policy", "cookies"],
+                ["Terms of Service", "terms"],
               ].map(([label, id]) => (
                 <li key={id}>
                   <button
                     type="button"
                     onClick={() => onNavigate(id)}
                     data-testid={`footer-link-${id}`}
-                    className="text-left transition-colors duration-300 hover:text-white"
+                    className="text-left transition-colors duration-300 hover:text-white flex items-center gap-1.5"
                   >
+                    {id === "blueprint" && <Sparkles size={13} className="text-cyan-400" />}
+                    {id === "admin" && <ShieldCheck size={13} className="text-blue-400" />}
                     {label}
                   </button>
                 </li>
@@ -80,8 +87,36 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} deepliX. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-4 text-xs">
+            <button
+              type="button"
+              onClick={() => onNavigate("privacy")}
+              data-testid="footer-bottom-privacy"
+              className="hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </button>
+            <span>·</span>
+            <button
+              type="button"
+              onClick={() => onNavigate("cookies")}
+              data-testid="footer-bottom-cookies"
+              className="hover:text-white transition-colors"
+            >
+              Cookie Policy
+            </button>
+            <span>·</span>
+            <button
+              type="button"
+              onClick={() => onNavigate("terms")}
+              data-testid="footer-bottom-terms"
+              className="hover:text-white transition-colors"
+            >
+              Terms of Service
+            </button>
+          </div>
           <p className="font-mono text-[11px] uppercase tracking-[0.18em]">Fragmented operations → Connected infrastructure</p>
         </div>
       </div>

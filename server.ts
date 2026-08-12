@@ -162,7 +162,7 @@ async function startServer() {
   // Contact form submission endpoint
   app.post('/api/contact', async (req, res) => {
     try {
-      const { name, email, company, role, interest, message } = req.body;
+      const { name, email, company, role, interest, message, customOutcome, tools, outcomes } = req.body;
 
       if (!name || !email || !message) {
         return res.status(400).json({ error: 'Name, email, and message are required.' });
@@ -176,6 +176,11 @@ async function startServer() {
         role: role || '',
         interest: interest || '',
         message,
+        customOutcome: customOutcome || '',
+        tools: tools || [],
+        outcomes: outcomes || [],
+        hasBlueprint: message.includes('[Attached Blueprint Architecture]') || (tools && tools.length > 0),
+        status: 'new',
         createdAt: new Date().toISOString(),
       };
 
@@ -201,6 +206,77 @@ async function startServer() {
         error: 'An error occurred while saving your message.',
         details: err.message,
       });
+    }
+  });
+
+  // Analytics summary endpoint for admin dashboard
+  app.get('/api/admin/analytics', async (_req, res) => {
+    try {
+      let records: any[] = [];
+      const mongoUri = process.env.MONGODB_URI;
+
+      if (mongoUri) {
+        try {
+          const client = new MongoClient(mongoUri);
+          await client.connect();
+          const dbName = process.env.MONGODB_DB_NAME || 'deeplix_db';
+          const collection = client.db(dbName).collection('submissions');
+          records = await collection.find({}).sort({ createdAt: -1 }).toArray();
+          await client.close();
+        } catch (mErr: any) {
+          console.error('[Analytics API] Mongo query failed:', mErr.message);
+        }
+      }
+
+      if (records.length === 0 && fs.existsSync(LOCAL_STORE_PATH)) {
+        const raw = fs.readFileSync(LOCAL_STORE_PATH, 'utf-8');
+        records = JSON.parse(raw);
+      }
+
+      // Compute analytics
+      const totalLeads = records.length;
+      const blueprintLeads = records.filter(r => r.hasBlueprint || r.message?.includes('[Attached Blueprint Architecture]')).length;
+
+      const interestsMap: Record<string, number> = {};
+      const toolsMap: Record<string, number> = {};
+      const outcomesMap: Record<string, number> = {};
+
+      records.forEach(r => {
+        const area = r.interest || 'General Enquiry';
+        interestsMap[area] = (interestsMap[area] || 0) + 1;
+
+        // Extract tools mentioned
+        if (Array.isArray(r.tools)) {
+          r.tools.forEach((t: string) => {
+            toolsMap[t] = (toolsMap[t] || 0) + 1;
+          });
+        } else if (r.message) {
+          ['Salesforce', 'PostgreSQL', 'Google Sheets', 'HubSpot', 'SAP', 'Stripe', 'Slack', 'Zendesk', 'Snowflake', 'MongoDB'].forEach(t => {
+            if (r.message.includes(t)) {
+              toolsMap[t] = (toolsMap[t] || 0) + 1;
+            }
+          });
+        }
+
+        // Extract outcomes
+        if (Array.isArray(r.outcomes)) {
+          r.outcomes.forEach((o: string) => {
+            outcomesMap[o] = (outcomesMap[o] || 0) + 1;
+          });
+        }
+      });
+
+      return res.json({
+        totalLeads,
+        blueprintLeads,
+        standardLeads: totalLeads - blueprintLeads,
+        interestsMap,
+        toolsMap,
+        outcomesMap,
+        recentCount: records.length,
+      });
+    } catch (err: any) {
+      res.status(500).json({ error: 'Failed to compute analytics', details: err.message });
     }
   });
 

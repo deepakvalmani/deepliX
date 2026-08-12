@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Layers, Menu, X, ArrowRight } from "lucide-react";
+import { Layers, Menu, X, ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
 
 interface NavbarProps {
   currentView: string;
@@ -30,6 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
 
   const navLinks = [
     { id: "capabilities", label: "Capabilities" },
+    { id: "blueprint", label: "Blueprint Tool" },
     { id: "how-we-work", label: "How We Work" },
     { id: "systems-lab", label: "Systems Lab" },
     { id: "about", label: "About" },
@@ -79,14 +80,33 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                     : "text-slate-600 hover:bg-slate-100/80 hover:text-slate-900"
                 }`}
               >
-                {l.label}
+                {l.id === "blueprint" ? (
+                  <span className="flex items-center gap-1.5">
+                    <Sparkles size={13} className="text-blue-600" />
+                    {l.label}
+                  </span>
+                ) : (
+                  l.label
+                )}
               </button>
             );
           })}
         </div>
 
         {/* CTA & Mobile Toggle */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            type="button"
+            onClick={() => handleNavClick("admin")}
+            data-testid="nav-admin-link"
+            title="Admin Lead Inbox"
+            className={`grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white/90 text-slate-700 transition-colors hover:bg-slate-100 ${
+              currentView === "admin" ? "bg-blue-50 text-blue-700 border-blue-300" : ""
+            }`}
+          >
+            <ShieldCheck size={18} />
+          </button>
+
           <button
             type="button"
             onClick={() => handleNavClick("contact")}
@@ -129,6 +149,16 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView, onNavigate }) => {
                 {l.label}
               </button>
             ))}
+            <button
+              key="admin"
+              type="button"
+              onClick={() => handleNavClick("admin")}
+              data-testid="mobile-nav-link-admin"
+              className="flex items-center gap-2 rounded-xl px-4 py-3 text-left text-base font-semibold text-slate-700 hover:bg-slate-50"
+            >
+              <ShieldCheck size={18} className="text-blue-600" /> Admin Inbox
+            </button>
+
             <button
               type="button"
               onClick={() => handleNavClick("contact")}

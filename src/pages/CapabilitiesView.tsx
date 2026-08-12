@@ -94,15 +94,28 @@ export const CapabilitiesView: React.FC<CapabilitiesViewProps> = ({
                       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-cyan-300">Business outcome</p>
                       <p className="mt-2 max-w-sm text-sm font-medium leading-relaxed text-white">{c.outcome}</p>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => onNavigate("contact")}
-                      data-testid={`capability-cta-${c.slug}`}
-                      className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-bold text-[#0F172A] transition-colors duration-300 hover:bg-cyan-300"
-                    >
-                      Discuss this
-                      <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5" />
-                    </button>
+                    <div className="flex flex-wrap items-center gap-2 shrink-0">
+                      {c.slug === "ai-systems" && (
+                        <button
+                          type="button"
+                          onClick={() => onNavigate("systems-lab")}
+                          data-testid="simulate-ai-assistant-btn"
+                          className="inline-flex items-center gap-2 rounded-full bg-violet-600 px-5 py-2.5 text-xs font-bold text-white shadow-glow-blue hover:bg-violet-500 transition-colors"
+                        >
+                          Simulate AI Assistant
+                          <ArrowRight size={14} />
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => onNavigate("contact")}
+                        data-testid={`capability-cta-${c.slug}`}
+                        className="group inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-[#0F172A] transition-colors duration-300 hover:bg-cyan-300"
+                      >
+                        Discuss this
+                        <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-0.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>

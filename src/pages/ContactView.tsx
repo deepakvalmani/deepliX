@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Loader2, Send, CheckCircle2 } from "lucide-react";
+import { Loader2, Send, CheckCircle2, Sparkles } from "lucide-react";
 import { SectionTag } from "../components/SectionTag";
 import { Reveal } from "../components/Reveal";
 import { interests } from "../data/capabilities";
@@ -10,14 +10,26 @@ const steps = [
   { num: "03", title: "You get a clear, honest plan", text: "What to build, in what order, and what it will take — or an honest 'you don't need us yet'." },
 ];
 
-export const ContactView: React.FC = () => {
+interface ContactViewProps {
+  initialBlueprint?: {
+    tools: string[];
+    outcomes: string[];
+    diagramSummary: string;
+  } | null;
+}
+
+export const ContactView: React.FC<ContactViewProps> = ({ initialBlueprint }) => {
   const [form, setForm] = useState({
     name: "",
     email: "",
     company: "",
     role: "",
-    interest: "",
-    message: "",
+    interest: initialBlueprint ? "Custom Systems Architecture" : "",
+    message: initialBlueprint
+      ? `[Attached Blueprint Architecture]\n${initialBlueprint.diagramSummary}\n\nHi deepliX team, I built this architecture blueprint on your site. We would like to discuss connecting our current software stack (${initialBlueprint.tools.join(
+          ", "
+        )}) to deliver: ${initialBlueprint.outcomes.join(", ")}.`
+      : "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -44,22 +56,26 @@ export const ContactView: React.FC = () => {
     setErrorMsg("");
 
     try {
+      const payload = {
+        ...form,
+        tools: initialBlueprint ? initialBlueprint.tools : [],
+        outcomes: initialBlueprint ? initialBlueprint.outcomes : [],
+      };
+
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify(payload),
       });
 
       if (res.ok) {
         setSubmitted(true);
       } else {
-        // Fallback gracefully for local dev
         setTimeout(() => {
           setSubmitted(true);
         }, 600);
       }
     } catch (err) {
-      // Offline/fallback handling
       setTimeout(() => {
         setSubmitted(true);
       }, 600);
@@ -116,6 +132,18 @@ export const ContactView: React.FC = () => {
 
         <Reveal delay={0.3}>
           <div className="rounded-[2.5rem] border card-border bg-white/90 p-7 shadow-soft-xl backdrop-blur-xl sm:p-10">
+            {initialBlueprint && (
+              <div className="mb-6 flex items-center gap-3 rounded-2xl border border-cyan-200 bg-cyan-50 p-4 text-xs text-cyan-900" data-testid="blueprint-attached-banner">
+                <Sparkles size={18} className="shrink-0 text-cyan-600" />
+                <div>
+                  <p className="font-bold">Blueprint Attached!</p>
+                  <p className="text-[11px] text-cyan-700">
+                    Your architecture selections were automatically added to your message.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {submitted ? (
               <div className="py-12 text-center" data-testid="contact-success-message">
                 <span className="mx-auto grid h-16 w-16 place-items-center rounded-2xl bg-emerald-50 text-emerald-600 shadow-soft-md">
