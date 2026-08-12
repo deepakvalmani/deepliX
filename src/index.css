@@ -1,93 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
-:root {
-  /* Rich Dark Blue / Indigo Glassmorphism Theme */
-  --bg-950: #020617; /* Deep Navy Black background */
-  --bg-900: #070e1c; /* Section alternate / Deep Blue background */
-  --bg-850: rgba(15, 23, 42, 0.45); /* Glassmorphic Card background (translucent blue) */
-  --bg-800: rgba(255, 255, 255, 0.08); /* Card borders / Dividers */
-  --bg-700: rgba(255, 255, 255, 0.15); /* Focus border highlights */
-
-  /* Text color variables (swapped to high-contrast white/gray scale) */
-  --text-main-white: #ffffff; /* Pure white headings */
-  --text-main-100: #f8fafc;   /* Slate-50 main body text */
-  --text-main-200: #e2e8f0;   /* Slate-200 secondary text */
-  --text-main-300: #cbd5e1;   /* Slate-300 meta text */
-  --text-main-400: #94a3b8;   /* Slate-400 description text */
-  --text-main-500: #64748b;   /* Slate-500 optimized caption text */
-  --text-main-600: #475569;   /* Slate-600 placeholder text */
-
-  /* Cyan & Indigo Accent colors for premium look */
-  --cyan-950-custom: rgba(30, 64, 175, 0.2); /* Translucent Blue accent */
-  --cyan-900-custom: #0f2d6b; /* Solid Dark Blue */
-  --cyan-850-custom: #1d4ed8; /* Royal Blue (similar to Capstone Program button) */
-  --cyan-800-custom: #2563eb; /* Vivid Blue */
-  --cyan-500-custom: #3b82f6; /* Hover / Highlight Blue */
-  --cyan-400-custom: #60a5fa; /* Active Bright Cyan/Blue */
+@layer base {
+  :root {
+    --primary: #2563EB;
+    --secondary: #06B6D4;
+    --mist: #F8FAFC;
+    --ink: #0F172A;
+    --border: rgba(148, 163, 184, 0.2);
+    --font-sans: 'Inter', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
   
-  --red-950-custom: rgba(127, 29, 29, 0.2);
-  --red-900-custom: #7f1d1d;
-  --red-400-custom: #ef4444;
-
-  --shadow-glow: 0 4px 30px rgba(0, 0, 0, 0.4);
-  --shadow-glow-intense: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 20px rgba(37, 99, 235, 0.15);
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--mist);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
 }
 
-@theme {
-  --color-zinc-950: var(--bg-950);
-  --color-zinc-900: var(--bg-900);
-  --color-zinc-850: var(--bg-850);
-  --color-zinc-800: var(--bg-800);
-  --color-zinc-700: var(--bg-700);
-  
-  --color-white: var(--text-main-white);
-  --color-zinc-100: var(--text-main-100);
-  --color-zinc-200: var(--text-main-200);
-  --color-zinc-300: var(--text-main-300);
-  --color-zinc-400: var(--text-main-400);
-  --color-zinc-500: var(--text-main-500);
-  --color-zinc-600: var(--text-main-600);
-  
-  --color-cyan-950: var(--cyan-950-custom);
-  --color-cyan-900: var(--cyan-900-custom);
-  --color-cyan-850: var(--cyan-850-custom);
-  --color-cyan-800: var(--cyan-800-custom);
-  --color-cyan-500: var(--cyan-500-custom);
-  --color-cyan-400: var(--cyan-400-custom);
-  
-  --color-red-950: var(--red-950-custom);
-  --color-red-900: var(--red-900-custom);
-  --color-red-400: var(--red-400-custom);
-  
-  /* Use clean sans-serif for normal style requested by the user */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  
-  --shadow-cyan-glow: var(--shadow-glow);
-  --shadow-cyan-glow-intense: var(--shadow-glow-intense);
+@utility font-sans {
+  font-family: 'Inter', 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
 }
 
-body {
-  background-color: var(--bg-950);
-  background-image: 
-    radial-gradient(circle at 100% 0%, rgba(37, 99, 235, 0.15), transparent 40%),
-    radial-gradient(circle at 0% 100%, rgba(29, 78, 216, 0.15), transparent 40%),
-    radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.04), transparent 60%);
-  background-attachment: fixed;
-  color: var(--text-main-100);
-  font-family: 'Inter', -apple-system, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@utility font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Page transitions styling */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+@utility text-gradient-bc {
+  background: linear-gradient(100deg, #2563EB 0%, #06B6D4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-.animate-fade-in {
-  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+@utility text-gradient-bv {
+  background: linear-gradient(100deg, #2563EB 0%, #06B6D4 50%, #8B5CF6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
+@utility bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@utility card-border {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+@utility shadow-glow-blue {
+  box-shadow: 0 0 40px -10px rgba(37, 99, 235, 0.35);
+}
+
+@utility shadow-glow-cyan {
+  box-shadow: 0 0 40px -10px rgba(6, 182, 212, 0.35);
+}
+
+@utility shadow-glow-violet {
+  box-shadow: 0 0 40px -10px rgba(139, 92, 246, 0.35);
+}
+
+@utility shadow-soft-sm {
+  box-shadow: 0 2px 10px -3px rgba(37, 99, 235, 0.05);
+}
+
+@utility shadow-soft-md {
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
+}
+
+@utility shadow-soft-xl {
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.05);
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -28; }
+}
+
+@keyframes barGrow {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes orbDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(24px, -32px) scale(1.06); }
+  66% { transform: translate(-20px, 20px) scale(0.96); }
+}
+
+.animate-marquee {
+  animation: marquee 45s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-dash-flow {
+  animation: dashFlow 1.4s linear infinite;
+}
+
+.animate-bar-grow {
+  animation: barGrow 2.8s ease-in-out infinite;
+}
+
+.animate-orb-drift {
+  animation: orbDrift 16s ease-in-out infinite;
+}
