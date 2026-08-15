@@ -7,6 +7,7 @@ import { createServer as createViteServer } from 'vite';
 import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 import { MongoClient } from 'mongodb';
+import { sql } from '@vercel/postgres';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,10 +44,48 @@ async function startServer() {
     role?: string;
     interest?: string;
     message: string;
+    customOutcome?: string;
+    tools?: string[];
+    outcomes?: string[];
+    hasBlueprint?: boolean;
+    status?: string;
     createdAt: string;
   }) {
     let savedToMongo = false;
+    let savedToPostgres = false;
     let mongoError: string | null = null;
+
+    const postgresUrl = process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL_NON_POOLING;
+    if (postgresUrl) {
+      try {
+        const toolsValue = (submission.tools || []) as any;
+        const outcomesValue = (submission.outcomes || []) as any;
+
+        await sql`CREATE TABLE IF NOT EXISTS submissions (
+          id TEXT PRIMARY KEY,
+          name TEXT NOT NULL,
+          email TEXT NOT NULL,
+          company TEXT,
+          role TEXT,
+          interest TEXT,
+          message TEXT NOT NULL,
+          custom_outcome TEXT,
+          tools TEXT[],
+          outcomes TEXT[],
+          has_blueprint BOOLEAN DEFAULT false,
+          status TEXT DEFAULT 'new',
+          created_at TIMESTAMPTZ DEFAULT NOW()
+        );`;
+
+        await sql`
+          INSERT INTO submissions (id, name, email, company, role, interest, message, custom_outcome, tools, outcomes, has_blueprint, status, created_at)
+          VALUES (${submission.id}, ${submission.name}, ${submission.email}, ${submission.company || ''}, ${submission.role || ''}, ${submission.interest || ''}, ${submission.message}, ${submission.customOutcome || ''}, ${toolsValue}, ${outcomesValue}, ${submission.hasBlueprint || false}, ${submission.status || 'new'}, ${submission.createdAt})
+        savedToPostgres = true;
+        console.log('[Database] Successfully saved submission to Vercel Postgres');
+      } catch (err: any) {
+        console.error('[Database Error] Failed to save to Vercel Postgres:', err.message);
+      }
+    }
 
     // 1. Save to MongoDB if MONGODB_URI is provided
     const mongoUri = process.env.MONGODB_URI;
@@ -58,7 +97,7 @@ async function startServer() {
         const dbName = process.env.MONGODB_DB_NAME || 'deeplix_db';
         const db = client.db(dbName);
         const collection = db.collection('submissions');
-        
+
         await collection.insertOne({
           ...submission,
           _insertedAt: new Date(),
@@ -83,7 +122,7 @@ async function startServer() {
       console.error('[Database Error] Local store backup error:', err.message);
     }
 
-    return { savedToMongo, mongoError };
+    return { savedToMongo, savedToPostgres, mongoError };
   }
 
   // Job application database helper
@@ -302,6 +341,7 @@ async function startServer() {
         message: 'Thank you for reaching out to deepliX. We will be in touch shortly.',
         dbSaved: true,
         mongoSaved: dbStatus.savedToMongo,
+        postgresSaved: dbStatus.savedToPostgres,
         emailStatus: emailResult.status,
         provider: emailResult.provider,
       });
@@ -478,9 +518,33 @@ async function startServer() {
   app.get('/api/admin/analytics', async (_req, res) => {
     try {
       let records: any[] = [];
+      const postgresUrl = process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL_NON_POOLING;
       const mongoUri = process.env.MONGODB_URI;
 
-      if (mongoUri) {
+      if (postgresUrl) {
+        try {
+          const pgRows = await sql`SELECT * FROM submissions ORDER BY created_at DESC`;
+          records = pgRows.rows.map((row: any) => ({
+            ...row,
+            id: row.id,
+            name: row.name,
+            email: row.email,
+            company: row.company,
+            role: row.role,
+            interest: row.interest,
+            message: row.message,
+            customOutcome: row.custom_outcome,
+            tools: row.tools || [],
+            outcomes: row.outcomes || [],
+            hasBlueprint: row.has_blueprint,
+            createdAt: row.created_at,
+          }));
+        } catch (mErr: any) {
+          console.error('[Analytics API] Postgres query failed:', mErr.message);
+        }
+      }
+
+      if (mongoUri && records.length === 0) {
         try {
           const client = new MongoClient(mongoUri);
           await client.connect();
@@ -548,8 +612,48 @@ async function startServer() {
   // Get list of saved submissions
   app.get('/api/submissions', async (_req, res) => {
     try {
+      const postgresUrl = process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL_NON_POOLING;
       const mongoUri = process.env.MONGODB_URI;
-      let records = [];
+      let records: any[] = [];
+
+      if (postgresUrl) {
+        try {
+          const pgRows = await sql`CREATE TABLE IF NOT EXISTS submissions (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            company TEXT,
+            role TEXT,
+            interest TEXT,
+            message TEXT NOT NULL,
+            custom_outcome TEXT,
+            tools TEXT[],
+            outcomes TEXT[],
+            has_blueprint BOOLEAN DEFAULT false,
+            status TEXT DEFAULT 'new',
+            created_at TIMESTAMPTZ DEFAULT NOW()
+          );`;
+          const rows = await sql`SELECT * FROM submissions ORDER BY created_at DESC`;
+          records = rows.rows.map((row: any) => ({
+            ...row,
+            id: row.id,
+            name: row.name,
+            email: row.email,
+            company: row.company,
+            role: row.role,
+            interest: row.interest,
+            message: row.message,
+            customOutcome: row.custom_outcome,
+            tools: row.tools || [],
+            outcomes: row.outcomes || [],
+            hasBlueprint: row.has_blueprint,
+            createdAt: row.created_at,
+          }));
+          return res.json({ source: 'postgres', count: records.length, submissions: records });
+        } catch (postgresErr: any) {
+          console.error('[Submissions API] Postgres query failed, falling back to local file:', postgresErr.message);
+        }
+      }
 
       if (mongoUri) {
         try {
@@ -582,6 +686,7 @@ async function startServer() {
     const hasResend = !!process.env.RESEND_API_KEY;
     const hasSmtp = !!process.env.SMTP_HOST;
     const hasMongo = !!process.env.MONGODB_URI;
+    const hasVercelPostgres = !!(process.env.POSTGRES_URL || process.env.POSTGRES_PRISMA_URL || process.env.POSTGRES_URL_NON_POOLING);
 
     res.json({
       status: 'ok',
@@ -589,6 +694,7 @@ async function startServer() {
       time: new Date().toISOString(),
       database: {
         mongoConfigured: hasMongo,
+        vercelPostgresConfigured: hasVercelPostgres,
         localBackupActive: true,
       },
       email: {
