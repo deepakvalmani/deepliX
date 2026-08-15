@@ -80,6 +80,8 @@ async function startServer() {
         await sql`
           INSERT INTO submissions (id, name, email, company, role, interest, message, custom_outcome, tools, outcomes, has_blueprint, status, created_at)
           VALUES (${submission.id}, ${submission.name}, ${submission.email}, ${submission.company || ''}, ${submission.role || ''}, ${submission.interest || ''}, ${submission.message}, ${submission.customOutcome || ''}, ${toolsValue}, ${outcomesValue}, ${submission.hasBlueprint || false}, ${submission.status || 'new'}, ${submission.createdAt})
+        `;
+
         savedToPostgres = true;
         console.log('[Database] Successfully saved submission to Vercel Postgres');
       } catch (err: any) {
