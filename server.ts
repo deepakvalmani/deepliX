@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
@@ -135,6 +136,14 @@ async function startServer() {
     return { savedToMongo };
   }
 
+  const escapeHtml = (value: string) =>
+    value
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+
   // Helper function to handle sending emails
   async function sendNotificationEmail(details: {
     name: string;
@@ -149,21 +158,62 @@ async function startServer() {
     const recipient = process.env.CONTACT_NOTIFICATION_EMAIL || process.env.NOTIFICATION_EMAIL || 'notification@deeplix.com';
     const resendKey = process.env.RESEND_API_KEY;
     const smtpHost = process.env.SMTP_HOST;
+    const linkedinUrl = process.env.LINKEDIN_URL || 'https://www.linkedin.com/company/111716037/';
+    const websiteUrl = process.env.WEBSITE_URL || 'https://deeplix.com';
+    const safeName = escapeHtml(name);
+    const safeEmail = escapeHtml(email);
+    const safeCompany = escapeHtml(company || 'N/A');
+    const safeRole = escapeHtml(role || 'N/A');
+    const safeInterest = escapeHtml(interest || 'General Enquiry');
+    const safeMessage = escapeHtml(message).replace(/\n/g, '<br/>');
 
     const htmlContent = `
-      <div style="font-family: sans-serif; padding: 20px; color: #0F172A; max-width: 600px; margin: 0 auto; border: 1px solid #E2E8F0; border-radius: 12px;">
-        <h2 style="color: #2563EB; margin-top: 0;">New Contact Form Submission — deepliX</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-        <p><strong>Company:</strong> ${company || 'N/A'}</p>
-        <p><strong>Role:</strong> ${role || 'N/A'}</p>
-        <p><strong>Interest Area:</strong> ${interest || 'General Enquiry'}</p>
-        <hr style="border: none; border-top: 1px solid #E2E8F0; margin: 20px 0;" />
-        <p><strong>Message:</strong></p>
-        <blockquote style="background: #F8FAFC; border-left: 4px solid #2563EB; padding: 12px 16px; margin: 0; color: #334155;">
-          ${message.replace(/\n/g, '<br/>')}
-        </blockquote>
-        <p style="font-size: 12px; color: #94A3B8; margin-top: 24px;">Sent automatically from your deepliX website backend.</p>
+      <div style="margin: 0; padding: 32px 16px; background: linear-gradient(180deg, #f8fafc 0%, #eef6ff 100%); font-family: Arial, Helvetica, sans-serif; color: #0F172A;">
+        <div style="max-width: 640px; margin: 0 auto; background: #ffffff; border: 1px solid #E2E8F0; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 60px rgba(15, 23, 42, 0.08);">
+          <div style="padding: 24px 28px; background: linear-gradient(135deg, #0F172A 0%, #1D4ED8 52%, #06B6D4 100%);">
+            <div style="display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px; border-radius: 14px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18);">
+              <div style="width: 32px; height: 32px; border-radius: 10px; background: linear-gradient(135deg, #2563EB 0%, #67E8F9 100%); display: grid; place-items: center; font-size: 14px; font-weight: 900; color: white;">dX</div>
+              <div style="font-size: 24px; line-height: 1; font-weight: 800; letter-spacing: -0.06em; color: #FFFFFF;">deepli<span style="color: #BAE6FD;">X</span></div>
+            </div>
+          </div>
+
+          <div style="padding: 32px 28px 20px;">
+            <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #334155;">Hi ${safeName.split(' ')[0] || 'there'},</p>
+            <h2 style="margin: 0 0 12px; font-size: 28px; line-height: 1.2; letter-spacing: -0.05em; color: #0F172A;">Thanks for reaching out.</h2>
+            <p style="margin: 0 0 18px; font-size: 16px; line-height: 1.7; color: #475569;">
+              We’ve received your message and the deepliX team will review it shortly. We’re grateful you reached out to talk about your systems, workflows, and growth goals.
+            </p>
+
+            <div style="margin: 20px 0; padding: 18px 20px; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 16px;">
+              <p style="margin: 0 0 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #475569;">Submission details</p>
+              <p style="margin: 0 0 6px; font-size: 14px; color: #0F172A;"><strong>Name:</strong> ${safeName}</p>
+              <p style="margin: 0 0 6px; font-size: 14px; color: #0F172A;"><strong>Email:</strong> <a href="mailto:${safeEmail}" style="color: #2563EB; text-decoration: none;">${safeEmail}</a></p>
+              <p style="margin: 0 0 6px; font-size: 14px; color: #0F172A;"><strong>Company:</strong> ${safeCompany}</p>
+              <p style="margin: 0 0 6px; font-size: 14px; color: #0F172A;"><strong>Role:</strong> ${safeRole}</p>
+              <p style="margin: 0 0 6px; font-size: 14px; color: #0F172A;"><strong>Interest:</strong> ${safeInterest}</p>
+            </div>
+
+            <div style="margin: 18px 0 22px; padding: 18px 20px; background: linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 100%); border-left: 4px solid #2563EB; border-radius: 12px; color: #334155; font-size: 14px; line-height: 1.7;">
+              <strong style="display: block; margin-bottom: 6px; color: #0F172A;">Message:</strong>
+              ${safeMessage}
+            </div>
+
+            <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #475569;">
+              We keep every conversation personal, practical, and honest — no automated funnels, no pressure, just a useful conversation about what matters.
+            </p>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 8px;">
+              <a href="${linkedinUrl}" style="display: inline-block; padding: 12px 18px; border-radius: 999px; background: #0F172A; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 700;">Connect on LinkedIn</a>
+              <a href="${websiteUrl}" style="display: inline-block; padding: 12px 18px; border-radius: 999px; background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%); color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 700;">Visit deepliX</a>
+            </div>
+          </div>
+
+          <div style="padding: 18px 28px 28px; border-top: 1px solid #E2E8F0; background: #F8FAFC;">
+            <p style="margin: 0; font-size: 12px; line-height: 1.7; color: #64748B;">
+              © ${new Date().getFullYear()} deepliX. Built for systems that keep businesses moving.
+            </p>
+          </div>
+        </div>
       </div>
     `;
 
