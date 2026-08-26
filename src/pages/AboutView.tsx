@@ -239,10 +239,6 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenBooking 
                     <span className="text-[#71717A]">Code &amp; Architecture Delivery</span>
                     <span className="font-semibold text-[#10B981]">100% Client Owned</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#71717A]">Official Domain</span>
-                    <span className="font-mono font-semibold text-[#00BFFF]">deeplix.com</span>
-                  </div>
                 </div>
 
                 <div className="rounded-2xl border border-white/5 bg-[#121212] p-4 text-xs text-[#A1A1AA]">
