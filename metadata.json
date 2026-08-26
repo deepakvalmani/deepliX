@@ -1,6 +1,0 @@
-{
-  "name": "deepliX",
-  "description": "Data, automation, analytics, and AI infrastructure for modern businesses.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
