@@ -232,13 +232,13 @@ export const AdminView: React.FC<AdminViewProps> = ({ onNavigate }) => {
                 type="password"
                 value={passcode}
                 onChange={(e) => setPasscode(e.target.value)}
-                placeholder="Enter passcode (default: deeplix2026)"
+                placeholder="Enter passcode "
                 data-testid="admin-passcode-input"
                 className="mt-1.5 w-full rounded-xl border border-white/10 bg-[#141414] px-4 py-3 text-sm text-[#E4E4E7] placeholder:text-[#71717A] focus:border-[#00BFFF] focus:outline-none focus:ring-1 focus:ring-[#00BFFF]"
               />
               {passError && (
                 <p className="mt-1.5 text-xs text-rose-400 font-medium">
-                  Incorrect passcode. (Default passcode: <code>deeplix2026</code>)
+                  Incorrect passcode try again.
                 </p>
               )}
             </div>
