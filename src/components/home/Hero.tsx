@@ -1,32 +1,36 @@
 import React from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar, Sparkles, Layers, ShieldCheck } from "lucide-react";
 import { InfrastructureVisual } from "./InfrastructureVisual";
 import { SectionTag } from "../SectionTag";
 import { Reveal } from "../Reveal";
 
 interface HeroProps {
   onNavigate: (view: string, hash?: string) => void;
+  onOpenBooking?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
+export const Hero: React.FC<HeroProps> = ({ onNavigate, onOpenBooking }) => {
   return (
-    <section data-testid="hero-section" className="relative overflow-hidden px-6 pb-20 pt-32 lg:px-10 lg:pb-28 lg:pt-40">
-      <div className="pointer-events-none absolute -right-40 -top-48 h-[560px] w-[560px] animate-orb-drift rounded-full bg-gradient-to-br from-blue-300/40 via-cyan-200/40 to-violet-300/30 blur-3xl" aria-hidden="true" />
-      <div className="pointer-events-none absolute -left-56 top-40 h-[420px] w-[420px] animate-orb-drift rounded-full bg-gradient-to-br from-cyan-200/40 to-emerald-200/30 blur-3xl" aria-hidden="true" />
-      <div className="bg-grid pointer-events-none absolute inset-0 opacity-60 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,black,transparent)]" aria-hidden="true" />
+    <section data-testid="hero-section" className="relative overflow-hidden px-6 pb-20 pt-28 lg:px-10 lg:pb-28 lg:pt-36 bg-[#121212]">
+      <div className="pointer-events-none absolute -right-40 -top-48 h-[560px] w-[560px] animate-orb-drift rounded-full bg-gradient-to-br from-[#00BFFF]/18 via-[#06B6D4]/12 to-[#8B5CF6]/15 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -left-56 top-40 h-[420px] w-[420px] animate-orb-drift rounded-full bg-gradient-to-br from-[#06B6D4]/15 to-[#10B981]/10 blur-3xl" aria-hidden="true" />
+      <div className="bg-grid pointer-events-none absolute inset-0 opacity-30 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,black,transparent)]" aria-hidden="true" />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-[1.05fr_0.95fr]">
         <div>
           <Reveal>
-            <SectionTag color="#06B6D4">Data · Automation · AI Infrastructure</SectionTag>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#00BFFF]/30 bg-[#1E1E1E] px-3.5 py-1 text-xs text-[#00BFFF] shadow-glow-blue mb-4">
+              <span className="h-2 w-2 rounded-full bg-[#00BFFF] animate-ping" />
+              <span>Engineered Operations &amp; Data Infrastructure</span>
+            </div>
           </Reveal>
 
-          <h1 className="mt-7 text-[2.85rem] font-extrabold leading-[1.04] tracking-tighter text-[#0F172A] sm:text-6xl lg:text-[4.25rem]">
+          <h1 className="mt-3 text-[2.85rem] font-extrabold leading-[1.04] tracking-tighter text-[#E4E4E7] sm:text-6xl lg:text-[4.25rem]">
             <Reveal delay={0.1}>
               <span className="block">Build the</span>
             </Reveal>
             <Reveal delay={0.2}>
-              <span className="text-gradient-bc block">infrastructure</span>
+              <span className="text-gradient-electric block">systems &amp; data pipelines</span>
             </Reveal>
             <Reveal delay={0.3}>
               <span className="block">behind better business.</span>
@@ -34,37 +38,57 @@ export const Hero: React.FC<HeroProps> = ({ onNavigate }) => {
           </h1>
 
           <Reveal delay={0.4}>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg">
-              deepliX helps businesses design, connect, automate, and manage the technology systems that keep their operations moving.
+            <p className="mt-6 max-w-xl text-base leading-relaxed text-[#A1A1AA] sm:text-lg">
+              deepliX designs, connects, automates, and manages the technology systems that eliminate manual bottlenecks and scale company operations.
             </p>
           </Reveal>
 
           <Reveal delay={0.5}>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-3.5">
               <button
                 type="button"
-                onClick={() => onNavigate("contact")}
-                data-testid="hero-start-conversation-button"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 bg-[length:160%_160%] px-7 py-3.5 text-sm font-bold text-white shadow-glow-blue transition-all duration-300 hover:-translate-y-0.5 hover:shadow-glow-cyan"
+                onClick={() => {
+                  if (typeof onOpenBooking === "function") {
+                    onOpenBooking();
+                  } else {
+                    onNavigate("contact");
+                  }
+                }}
+                data-testid="hero-book-meeting-button"
+                className="group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#00BFFF] via-[#38BDF8] to-[#06B6D4] px-6 py-3.5 text-sm font-bold text-[#121212] shadow-glow-blue transition-all duration-300 hover:-translate-y-0.5 hover:brightness-110 cursor-pointer"
               >
-                Start a Conversation
-                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+                <Calendar size={16} />
+                <span>Book an Instant Meeting</span>
+                <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
               </button>
+
               <button
                 type="button"
-                onClick={() => onNavigate("capabilities")}
-                data-testid="hero-explore-capabilities-button"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white/70 px-7 py-3.5 text-sm font-bold text-[#0F172A] backdrop-blur transition-colors duration-300 hover:border-blue-400 hover:text-blue-700"
+                onClick={() => onNavigate("solutions")}
+                data-testid="hero-explore-solutions-button"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-[#1E1E1E]/80 px-6 py-3.5 text-sm font-bold text-[#E4E4E7] backdrop-blur transition-all duration-300 hover:border-[#00BFFF]/40 hover:text-[#00BFFF]"
               >
-                Explore Our Capabilities
+                Explore Solutions
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onNavigate("blueprint")}
+                data-testid="hero-open-blueprint-button"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[#121212] px-4 py-3.5 text-xs font-semibold text-[#A1A1AA] hover:text-[#E4E4E7] hover:border-white/20 transition-all"
+              >
+                <Sparkles size={14} className="text-[#00BFFF]" />
+                <span>Build Blueprint</span>
               </button>
             </div>
           </Reveal>
 
           <Reveal delay={0.6}>
-            <p className="mt-9 font-mono text-[11px] uppercase tracking-[0.26em] text-slate-400">
-              Fragmented operations <span className="text-blue-500">→</span> Connected infrastructure
-            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-4 font-mono text-[11px] uppercase tracking-[0.24em] text-[#71717A]">
+              <span>Fragmented Workflows</span>
+              <span className="text-[#00BFFF]">→</span>
+              <span className="text-[#E4E4E7]">Unified Real-Time Architecture</span>
+            </div>
           </Reveal>
         </div>
 

@@ -77,7 +77,7 @@ const OUTCOMES: OutcomeOption[] = [
     desc: "Clean, continuous sync into one single source of truth.",
     subStatus: "Snowflake / BigQuery Warehouse",
     icon: Database,
-    color: "#3B82F6",
+    color: "#00BFFF",
   },
   {
     id: "automation",
@@ -85,7 +85,7 @@ const OUTCOMES: OutcomeOption[] = [
     desc: "Eliminate manual data transfer between disconnected tools.",
     subStatus: "Real-time Webhooks & Pipelines",
     icon: Workflow,
-    color: "#06B6D4",
+    color: "#38BDF8",
   },
   {
     id: "ai_rag",
@@ -93,7 +93,7 @@ const OUTCOMES: OutcomeOption[] = [
     desc: "Grounded AI answers backed by your private company data.",
     subStatus: "Vector Indexing + RAG Stream",
     icon: BrainCircuit,
-    color: "#8B5CF6",
+    color: "#818CF8",
   },
   {
     id: "dashboards",
@@ -101,7 +101,7 @@ const OUTCOMES: OutcomeOption[] = [
     desc: "Real-time KPIs and automated weekly leadership reports.",
     subStatus: "Sub-second Metabase / Looker",
     icon: BarChart3,
-    color: "#10B981",
+    color: "#34D399",
   },
 ];
 
@@ -202,18 +202,18 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
   return (
     <section
       data-testid="blueprint-builder"
-      className="relative overflow-hidden px-6 py-16 lg:px-10 lg:py-24"
+      className="relative min-h-screen bg-[#121212] text-[#E4E4E7] overflow-hidden px-6 py-16 lg:px-10 lg:py-24"
     >
       <div className="mx-auto max-w-7xl">
         <div className="grid items-end gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <Reveal>
-            <SectionTag color="#2563EB">Interactive Architecture Tool</SectionTag>
-            <h2 className="mt-5 text-3xl font-extrabold leading-[1.12] tracking-tight text-[#0F172A] sm:text-4xl lg:text-5xl">
+            <SectionTag color="#00BFFF">Interactive Architecture Tool</SectionTag>
+            <h2 className="mt-5 text-3xl font-extrabold leading-[1.12] tracking-tight text-[#E4E4E7] sm:text-4xl lg:text-5xl">
               System Architecture Blueprint Builder
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="max-w-md text-base leading-relaxed text-slate-600">
+            <p className="max-w-md text-base leading-relaxed text-[#A1A1AA]">
               Select your current tools and desired outcomes to generate a live, animated proposed technology architecture diagram.
             </p>
           </Reveal>
@@ -221,31 +221,31 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[1.05fr_1.15fr]">
           {/* Controls Column */}
-          <div className="space-y-8 rounded-[2.5rem] border card-border bg-white p-6 shadow-soft-md sm:p-9">
+          <div className="space-y-8 rounded-[2.5rem] border border-white/10 bg-[#1E1E1E] p-6 shadow-2xl sm:p-9">
             {/* Step 1: Tool Selection */}
             <div>
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-blue-600">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#00BFFF]">
                   Step 1: Your Source Software Stack
                 </span>
-                <span className="rounded-full bg-blue-50 px-2.5 py-0.5 font-mono text-xs font-bold text-blue-600">
+                <span className="rounded-full bg-[#00BFFF]/10 border border-[#00BFFF]/30 px-2.5 py-0.5 font-mono text-xs font-bold text-[#00BFFF]">
                   {selectedTools.length} selected
                 </span>
               </div>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-[#A1A1AA]">
                 Choose the operational software tools where your core company data resides.
               </p>
 
               {/* Optional Category & Search Filter bar */}
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <div className="relative flex-1 min-w-[140px]">
-                  <Search size={13} className="absolute left-3 top-2.5 text-slate-400" />
+                  <Search size={13} className="absolute left-3 top-2.5 text-[#71717A]" />
                   <input
                     type="text"
                     placeholder="Search tools..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full rounded-lg border border-slate-200 bg-slate-50/70 pl-8 pr-3 py-1.5 text-xs text-[#0F172A] placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none"
+                    className="w-full rounded-lg border border-white/10 bg-[#141414] pl-8 pr-3 py-1.5 text-xs text-[#E4E4E7] placeholder:text-[#71717A] focus:border-[#00BFFF] focus:outline-none"
                   />
                 </div>
                 <div className="flex flex-wrap gap-1">
@@ -262,8 +262,8 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                       onClick={() => setActiveCategory(cat)}
                       className={`rounded-lg px-2.5 py-1 font-mono text-[10px] font-semibold transition-colors ${
                         activeCategory === cat
-                          ? "bg-[#0F172A] text-white"
-                          : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                          ? "bg-[#00BFFF] text-[#121212] font-bold"
+                          : "bg-white/5 text-[#A1A1AA] hover:bg-white/10 hover:text-[#E4E4E7]"
                       }`}
                     >
                       {label}
@@ -284,8 +284,8 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                       data-testid={`blueprint-tool-${t.id}`}
                       className={`group flex items-center gap-3 rounded-xl border p-3 text-left transition-all duration-200 ${
                         isSel
-                          ? "border-blue-500 bg-blue-50/90 shadow-soft-sm ring-1 ring-blue-500/20"
-                          : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                          ? "border-[#00BFFF] bg-[#00BFFF]/10 shadow-glow-blue ring-1 ring-[#00BFFF]/30"
+                          : "border-white/10 bg-[#141414] hover:border-white/20 hover:bg-white/5"
                       }`}
                     >
                       <span
@@ -295,18 +295,18 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                         <t.icon size={15} />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-xs font-bold text-[#0F172A]">
+                        <p className="truncate text-xs font-bold text-[#E4E4E7]">
                           {t.name}
                         </p>
-                        <p className="truncate font-mono text-[9px] text-slate-500">
+                        <p className="truncate font-mono text-[9px] text-[#A1A1AA]">
                           {t.sublabel}
                         </p>
                       </div>
                       <span
                         className={`grid h-5 w-5 shrink-0 place-items-center rounded-full border transition-all ${
                           isSel
-                            ? "border-blue-600 bg-blue-600 text-white"
-                            : "border-slate-300 bg-white text-transparent group-hover:border-slate-400"
+                            ? "border-[#00BFFF] bg-[#00BFFF] text-[#121212]"
+                            : "border-white/20 bg-white/5 text-transparent group-hover:border-white/40"
                         }`}
                       >
                         <Check size={11} strokeWidth={3} />
@@ -322,7 +322,7 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                   type="button"
                   onClick={() => setShowAllTools(!showAllTools)}
                   data-testid="toggle-more-tools-btn"
-                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-slate-300 bg-slate-50/80 py-2.5 font-mono text-xs font-bold text-slate-700 transition-all hover:border-blue-400 hover:bg-blue-50/50 hover:text-blue-700"
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-dashed border-white/20 bg-[#141414] py-2.5 font-mono text-xs font-bold text-[#A1A1AA] transition-all hover:border-[#00BFFF] hover:bg-[#00BFFF]/5 hover:text-[#00BFFF]"
                 >
                   {showAllTools ? (
                     <>
@@ -340,14 +340,14 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
             {/* Step 2: Outcomes Selection */}
             <div>
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-cyan-600">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-[#38BDF8]">
                   Step 2: Desired Outcomes
                 </span>
-                <span className="rounded-full bg-cyan-50 px-2.5 py-0.5 font-mono text-xs font-bold text-cyan-700">
+                <span className="rounded-full bg-[#38BDF8]/10 border border-[#38BDF8]/30 px-2.5 py-0.5 font-mono text-xs font-bold text-[#38BDF8]">
                   {selectedOutcomes.length} selected
                 </span>
               </div>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-[#A1A1AA]">
                 Choose what your connected data infrastructure should automate or deliver.
               </p>
 
@@ -362,8 +362,8 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                       data-testid={`blueprint-outcome-${o.id}`}
                       className={`flex w-full items-start gap-3 rounded-xl border p-3.5 text-left transition-all duration-200 ${
                         isSel
-                          ? "border-cyan-500 bg-cyan-50/80 shadow-soft-sm ring-1 ring-cyan-500/20"
-                          : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50"
+                          ? "border-[#00BFFF] bg-[#00BFFF]/10 shadow-glow-blue ring-1 ring-[#00BFFF]/30"
+                          : "border-white/10 bg-[#141414] hover:border-white/20 hover:bg-white/5"
                       }`}
                     >
                       <span
@@ -373,14 +373,14 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                         <o.icon size={17} />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="text-xs font-bold text-[#0F172A]">{o.title}</p>
-                        <p className="text-[11px] leading-snug text-slate-500">{o.desc}</p>
+                        <p className="text-xs font-bold text-[#E4E4E7]">{o.title}</p>
+                        <p className="text-[11px] leading-snug text-[#A1A1AA]">{o.desc}</p>
                       </div>
                       <span
                         className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border transition-all ${
                           isSel
-                            ? "border-cyan-600 bg-cyan-600 text-white"
-                            : "border-slate-300 bg-white text-transparent"
+                            ? "border-[#00BFFF] bg-[#00BFFF] text-[#121212]"
+                            : "border-white/20 bg-white/5 text-transparent"
                         }`}
                       >
                         <Check size={11} strokeWidth={3} />
@@ -391,12 +391,12 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
               </div>
 
               {/* Custom Client Outcome Box */}
-              <div className="mt-4 rounded-xl border border-dashed border-cyan-300 bg-cyan-50/50 p-3.5 transition-all focus-within:border-cyan-500 focus-within:bg-cyan-50">
-                <label htmlFor="custom-outcome-input" className="block text-xs font-bold text-[#0F172A] flex items-center justify-between">
+              <div className="mt-4 rounded-xl border border-dashed border-white/20 bg-[#141414] p-3.5 transition-all focus-within:border-[#00BFFF] focus-within:bg-[#00BFFF]/5">
+                <label htmlFor="custom-outcome-input" className="block text-xs font-bold text-[#E4E4E7] flex items-center justify-between">
                   <span>Custom Goal or Workflow Requirement</span>
-                  <span className="font-mono text-[10px] text-cyan-700 font-semibold uppercase">Optional</span>
+                  <span className="font-mono text-[10px] text-[#00BFFF] font-semibold uppercase">Optional</span>
                 </label>
-                <p className="mt-0.5 text-[11px] text-slate-500">
+                <p className="mt-0.5 text-[11px] text-[#A1A1AA]">
                   Describe any unique data connection, SLA requirement, or custom workflow you need.
                 </p>
                 <textarea
@@ -406,7 +406,7 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                   value={customOutcome}
                   onChange={(e) => setCustomOutcome(e.target.value)}
                   placeholder="e.g. Real-time sync from Shopify to SAP with custom Slack alerts on high-value orders..."
-                  className="mt-2 w-full rounded-lg border border-slate-200 bg-white p-2.5 text-xs text-[#0F172A] placeholder:text-slate-400 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                  className="mt-2 w-full rounded-lg border border-white/10 bg-[#1E1E1E] p-2.5 text-xs text-[#E4E4E7] placeholder:text-[#71717A] focus:border-[#00BFFF] focus:outline-none focus:ring-1 focus:ring-[#00BFFF]"
                 />
               </div>
             </div>
@@ -417,9 +417,9 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                 type="button"
                 onClick={handleGenerate}
                 data-testid="blueprint-attach-button"
-                className="group flex flex-1 items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-6 py-3.5 text-xs font-bold text-white shadow-glow-blue transition-all duration-300 hover:shadow-glow-cyan hover:-translate-y-0.5"
+                className="group flex flex-1 items-center justify-center gap-2.5 rounded-full bg-[#00BFFF] px-6 py-3.5 text-xs font-bold text-[#121212] shadow-glow-blue transition-all duration-300 hover:bg-[#38BDF8] hover:-translate-y-0.5"
               >
-                <Sparkles size={15} className="text-cyan-200 animate-pulse" />
+                <Sparkles size={15} className="text-[#121212]" />
                 Attach Blueprint &amp; Contact Us
                 <ArrowRight
                   size={14}
@@ -436,7 +436,7 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                   setActiveCategory("all");
                   setSynced(false);
                 }}
-                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-slate-200 bg-white px-4 py-3 text-xs font-semibold text-slate-600 transition-colors hover:bg-slate-100"
+                className="inline-flex items-center justify-center gap-1.5 rounded-full border border-white/10 bg-[#141414] px-4 py-3 text-xs font-semibold text-[#A1A1AA] transition-colors hover:bg-white/10 hover:text-[#E4E4E7]"
                 title="Reset choices"
               >
                 <RotateCcw size={13} />
@@ -446,29 +446,29 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
           </div>
 
           {/* Dynamic Animated Architecture Canvas */}
-          <div className="relative flex flex-col justify-between overflow-hidden rounded-[2.5rem] border border-slate-800 bg-[#0B1220] p-6 shadow-soft-xl sm:p-8">
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#0E1520] p-6 shadow-2xl sm:p-8">
             {/* Animated Canvas Backgrounds */}
             <div className="bg-grid pointer-events-none absolute inset-0 opacity-25" />
-            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 animate-orb-drift rounded-full bg-blue-600/15 blur-3xl" />
-            <div className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 animate-orb-drift rounded-full bg-cyan-500/15 blur-3xl" style={{ animationDelay: "4s" }} />
+            <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 animate-orb-drift rounded-full bg-[#00BFFF]/15 blur-3xl" />
+            <div className="pointer-events-none absolute -left-20 -bottom-20 h-64 w-64 animate-orb-drift rounded-full bg-[#38BDF8]/15 blur-3xl" style={{ animationDelay: "4s" }} />
 
             {/* Canvas Header Telemetry */}
             <div className="relative z-10 mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
               <div className="flex items-center gap-2">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-75" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-cyan-500" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#00BFFF] opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#00BFFF]" />
                 </span>
-                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-cyan-400 flex items-center gap-1.5">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[#00BFFF] flex items-center gap-1.5">
                   <Layers size={13} /> Live Architecture Stream
                 </span>
               </div>
 
-              <div className="flex items-center gap-3 font-mono text-[10px] text-slate-400">
+              <div className="flex items-center gap-3 font-mono text-[10px] text-[#A1A1AA]">
                 <span className="flex items-center gap-1">
                   <Activity size={12} className="text-emerald-400" /> {estimatedThroughput} rec/sec
                 </span>
-                <span className="hidden sm:inline text-slate-600">|</span>
+                <span className="hidden sm:inline text-white/20">|</span>
                 <span className="hidden sm:inline">Pipelines: {activePipelines}</span>
               </div>
             </div>
@@ -478,31 +478,31 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
               {/* Row 1: Source Stack */}
               <div>
                 <div className="mb-2.5 flex items-center justify-between">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-slate-400">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-[#71717A]">
                     1. Ingestion Sources ({activeToolObjects.length})
                   </span>
-                  <span className="font-mono text-[9px] text-cyan-400/80">
+                  <span className="font-mono text-[9px] text-[#00BFFF]/80">
                     Auto-Validated Schemas
                   </span>
                 </div>
 
                 <div className="flex flex-wrap gap-2">
                   {activeToolObjects.length === 0 ? (
-                    <div className="rounded-xl border border-dashed border-slate-700 bg-white/5 p-4 text-center text-xs italic text-slate-500">
+                    <div className="rounded-xl border border-dashed border-white/10 bg-white/5 p-4 text-center text-xs italic text-[#71717A]">
                       Select software tools on the left to activate data conduits...
                     </div>
                   ) : (
                     activeToolObjects.map((t) => (
                       <div
                         key={t.id}
-                        className="group relative flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-white shadow-soft-sm backdrop-blur transition-all duration-300 hover:border-cyan-400/50 hover:bg-white/15"
+                        className="group relative flex items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-3 py-2 text-xs font-semibold text-[#E4E4E7] shadow-soft-sm backdrop-blur transition-all duration-300 hover:border-[#00BFFF]/50 hover:bg-white/15"
                       >
                         <span
                           className="h-2.5 w-2.5 rounded-full animate-pulse"
                           style={{ background: t.color }}
                         />
                         <span>{t.name}</span>
-                        <span className="font-mono text-[9px] text-slate-400 font-normal">
+                        <span className="font-mono text-[9px] text-[#A1A1AA] font-normal">
                           · {t.sublabel}
                         </span>
                       </div>
@@ -516,9 +516,9 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                 <svg className="h-6 w-full overflow-visible" aria-hidden="true">
                   <defs>
                     <linearGradient id="gradient-flow-1" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#3B82F6" />
-                      <stop offset="50%" stopColor="#06B6D4" />
-                      <stop offset="100%" stopColor="#8B5CF6" />
+                      <stop offset="0%" stopColor="#00BFFF" />
+                      <stop offset="50%" stopColor="#38BDF8" />
+                      <stop offset="100%" stopColor="#818CF8" />
                     </linearGradient>
                   </defs>
                   <line
@@ -534,7 +534,7 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                 </svg>
 
                 <div className="absolute inset-x-0 -top-1 flex justify-center">
-                  <div className="flex items-center gap-2 rounded-full border border-cyan-500/30 bg-[#0B1220] px-3.5 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-cyan-300 shadow-glow-cyan">
+                  <div className="flex items-center gap-2 rounded-full border border-[#00BFFF]/30 bg-[#0E1520] px-3.5 py-1 text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-[#00BFFF] shadow-glow-blue">
                     <Zap size={11} className="text-amber-400 animate-bounce" />
                     deepliX Core Orchestration Engine
                   </div>
@@ -542,21 +542,21 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
               </div>
 
               {/* Row 2: Central Processing Core */}
-              <div className="relative overflow-hidden rounded-2xl border border-blue-500/40 bg-gradient-to-r from-blue-950/60 via-slate-900/80 to-cyan-950/60 p-4.5 backdrop-blur shadow-glow-blue">
+              <div className="relative overflow-hidden rounded-2xl border border-[#00BFFF]/30 bg-[#121E2E]/80 p-4.5 backdrop-blur shadow-glow-blue">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="relative grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-blue-600 text-white shadow-glow-blue">
-                      <BrainCircuit size={20} className="animate-pulse text-cyan-200" />
-                      <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-emerald-400 border-2 border-[#0B1220]" />
+                    <div className="relative grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[#00BFFF] text-[#121212] shadow-glow-blue">
+                      <BrainCircuit size={20} className="text-[#121212]" />
+                      <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-emerald-400 border-2 border-[#0E1520]" />
                     </div>
                     <div>
-                      <p className="text-xs font-extrabold text-white flex items-center gap-2">
+                      <p className="text-xs font-extrabold text-[#E4E4E7] flex items-center gap-2">
                         Unified Data Model &amp; Event Bus
-                        <span className="rounded bg-cyan-950 border border-cyan-800 px-1.5 py-0.2 font-mono text-[9px] text-cyan-300">
+                        <span className="rounded bg-[#00BFFF]/10 border border-[#00BFFF]/30 px-1.5 py-0.2 font-mono text-[9px] text-[#00BFFF]">
                           Active Sync
                         </span>
                       </p>
-                      <p className="mt-0.5 font-mono text-[10px] text-slate-300">
+                      <p className="mt-0.5 font-mono text-[10px] text-[#A1A1AA]">
                         Zero data loss · End-to-end encryption · Custom ETL / ELT Transformer
                       </p>
                     </div>
@@ -584,7 +584,7 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                 </svg>
 
                 <div className="absolute inset-x-0 -top-1 flex justify-center">
-                  <span className="rounded-full border border-violet-500/30 bg-[#0B1220] px-3 py-0.5 font-mono text-[9px] uppercase tracking-[0.2em] text-violet-300">
+                  <span className="rounded-full border border-[#818CF8]/30 bg-[#0E1520] px-3 py-0.5 font-mono text-[9px] uppercase tracking-[0.2em] text-[#818CF8]">
                     Realtime Event Routing
                   </span>
                 </div>
@@ -593,17 +593,17 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
               {/* Row 3: Target Systems & Deliverables */}
               <div>
                 <div className="mb-2.5 flex items-center justify-between">
-                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-slate-400">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-[#71717A]">
                     2. Target Operational Deliverables ({activeOutcomeObjects.length + (customOutcome.trim() ? 1 : 0)})
                   </span>
-                  <span className="font-mono text-[9px] text-violet-400/80">
+                  <span className="font-mono text-[9px] text-[#818CF8]/80">
                     Continuous Delivery
                   </span>
                 </div>
 
                 <div className="grid gap-2.5 sm:grid-cols-2">
                   {activeOutcomeObjects.length === 0 && !customOutcome.trim() ? (
-                    <div className="col-span-2 rounded-xl border border-dashed border-slate-700 bg-white/5 p-4 text-center text-xs italic text-slate-500">
+                    <div className="col-span-2 rounded-xl border border-dashed border-white/10 bg-white/5 p-4 text-center text-xs italic text-[#71717A]">
                       Select target outcomes or write a custom goal to complete your architecture...
                     </div>
                   ) : (
@@ -611,7 +611,7 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                       {activeOutcomeObjects.map((o) => (
                         <div
                           key={o.id}
-                          className="group flex items-center gap-3 rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur transition-all duration-300 hover:border-cyan-400/50 hover:bg-white/15"
+                          className="group flex items-center gap-3 rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur transition-all duration-300 hover:border-[#00BFFF]/50 hover:bg-white/15"
                         >
                           <span
                             className="grid h-8 w-8 shrink-0 place-items-center rounded-lg text-white shadow-soft-sm"
@@ -620,10 +620,10 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                             <o.icon size={15} />
                           </span>
                           <div className="min-w-0 flex-1">
-                            <p className="truncate text-xs font-bold text-white">
+                            <p className="truncate text-xs font-bold text-[#E4E4E7]">
                               {o.title}
                             </p>
-                            <p className="truncate font-mono text-[9px] text-cyan-300/80">
+                            <p className="truncate font-mono text-[9px] text-[#00BFFF]">
                               {o.subStatus}
                             </p>
                           </div>
@@ -644,7 +644,7 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                               Client Specific Custom Goal
                               <span className="rounded bg-amber-900/80 border border-amber-700/80 px-1.5 py-0.2 font-mono text-[8px] text-amber-300 uppercase">Custom Spec</span>
                             </p>
-                            <p className="mt-0.5 text-[11px] leading-snug text-slate-300 line-clamp-2 italic">
+                            <p className="mt-0.5 text-[11px] leading-snug text-[#E4E4E7] line-clamp-2 italic">
                               "{customOutcome.trim()}"
                             </p>
                           </div>
@@ -670,11 +670,11 @@ export const BlueprintBuilder: React.FC<BlueprintBuilderProps> = ({
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center justify-between text-xs text-slate-400">
-                  <span className="font-mono text-[10px] text-slate-400 flex items-center gap-1.5">
-                    <Sparkles size={13} className="text-cyan-400" /> Custom Architecture Spec Ready
+                <div className="flex items-center justify-between text-xs text-[#A1A1AA]">
+                  <span className="font-mono text-[10px] text-[#A1A1AA] flex items-center gap-1.5">
+                    <Sparkles size={13} className="text-[#00BFFF]" /> Custom Architecture Spec Ready
                   </span>
-                  <span className="font-mono text-[10px] text-slate-400">
+                  <span className="font-mono text-[10px] text-[#A1A1AA]">
                     {activeToolObjects.length} sources → {activeOutcomeObjects.length} outcomes
                   </span>
                 </div>

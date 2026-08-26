@@ -3,33 +3,41 @@ import { Hero } from "../components/home/Hero";
 import { Marquee } from "../components/Marquee";
 import { ProblemSection } from "../components/home/ProblemSection";
 import { TransformationSection } from "../components/home/TransformationSection";
-import { CapabilitiesSection } from "../components/home/CapabilitiesSection";
-import { SystemExplorer } from "../components/home/SystemExplorer";
-import { LifecycleSection } from "../components/home/LifecycleSection";
-import { PartnershipSection } from "../components/home/PartnershipSection";
 import { AudienceSection } from "../components/home/AudienceSection";
-import { ProcessSection } from "../components/home/ProcessSection";
-import { PrinciplesSection } from "../components/home/PrinciplesSection";
+import { SystemExplorer } from "../components/home/SystemExplorer";
+import { InstantMeetingBanner } from "../components/home/InstantMeetingBanner";
 import { CTASection } from "../components/CTASection";
 
 interface HomeProps {
   onNavigate: (view: string, hash?: string) => void;
+  onOpenBooking: () => void;
 }
 
-export const HomeView: React.FC<HomeProps> = ({ onNavigate }) => {
+export const HomeView: React.FC<HomeProps> = ({ onNavigate, onOpenBooking }) => {
   return (
     <>
-      <Hero onNavigate={onNavigate} />
+      {/* 1. Hero: Core proposition + Instant Meeting & Explore Actions */}
+      <Hero onNavigate={onNavigate} onOpenBooking={onOpenBooking} />
+
+      {/* 2. Marquee: Live systems & integrations banner */}
       <Marquee />
+
+      {/* 3. The Core Challenge: Fragmented Operations */}
       <ProblemSection />
+
+      {/* 4. The Transformation: Before deepliX vs With deepliX */}
       <TransformationSection />
-      <CapabilitiesSection onNavigate={onNavigate} />
-      <SystemExplorer />
-      <LifecycleSection />
-      <PartnershipSection />
+
+      {/* 5. Audience: Who We Build For */}
       <AudienceSection />
-      <ProcessSection onNavigate={onNavigate} />
-      <PrinciplesSection onNavigate={onNavigate} />
+
+      {/* 6. System Explorer: Interactive Architecture Preview */}
+      <SystemExplorer />
+
+      {/* 7. Instant Meeting Discovery Booking Banner */}
+      <InstantMeetingBanner onNavigate={onNavigate} onOpenBooking={onOpenBooking} />
+
+      {/* 8. Final High-Impact CTA */}
       <CTASection onNavigate={onNavigate} />
     </>
   );

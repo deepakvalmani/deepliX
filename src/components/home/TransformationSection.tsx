@@ -13,83 +13,83 @@ const tools = [
 ];
 
 const chaos = [
-  ["M16 12 L64 8", "#CBD5E1"],
-  ["M64 8 L78 42", "#FB7185"],
-  ["M16 12 L18 50", "#CBD5E1"],
-  ["M18 50 L44 76", "#CBD5E1"],
-  ["M78 42 L44 76", "#FB7185"],
-  ["M44 76 L72 80", "#CBD5E1"],
-  ["M78 42 L72 80", "#CBD5E1"],
-  ["M18 50 L64 8", "#CBD5E1"],
+  ["M16 12 L64 8", "rgba(255,255,255,0.15)"],
+  ["M64 8 L78 42", "rgba(251,113,133,0.4)"],
+  ["M16 12 L18 50", "rgba(255,255,255,0.15)"],
+  ["M18 50 L44 76", "rgba(255,255,255,0.15)"],
+  ["M78 42 L44 76", "rgba(251,113,133,0.4)"],
+  ["M44 76 L72 80", "rgba(255,255,255,0.15)"],
+  ["M78 42 L72 80", "rgba(255,255,255,0.15)"],
+  ["M18 50 L64 8", "rgba(255,255,255,0.15)"],
 ];
 
 const flow = [
-  { label: "CRM", icon: Users, color: "#3B82F6" },
-  { label: "Unified Data Layer", icon: Database, color: "#3B82F6" },
-  { label: "Automation", icon: Workflow, color: "#06B6D4" },
-  { label: "Analytics & Intelligence", icon: BarChart3, color: "#10B981" },
-  { label: "AI Workflows", icon: BrainCircuit, color: "#8B5CF6" },
+  { label: "Business Inputs & CRM", icon: Users, color: "#00BFFF" },
+  { label: "Unified Realtime Data Layer", icon: Database, color: "#00BFFF" },
+  { label: "Orchestrated Automation Engine", icon: Workflow, color: "#06B6D4" },
+  { label: "Live Analytics & Telemetry", icon: BarChart3, color: "#10B981" },
+  { label: "AI Workflows & Semantic Systems", icon: BrainCircuit, color: "#8B5CF6" },
 ];
 
 export const TransformationSection: React.FC = () => {
   return (
-    <section data-testid="transformation-section" className="px-6 py-20 lg:px-10 lg:py-28">
+    <section data-testid="transformation-section" className="px-6 py-20 lg:px-10 lg:py-28 bg-[#121212]">
       <div className="mx-auto max-w-7xl">
         <Reveal className="max-w-3xl">
-          <SectionTag color="#3B82F6">The transformation</SectionTag>
-          <h2 className="mt-5 text-3xl font-extrabold leading-[1.12] tracking-tight text-[#0F172A] sm:text-4xl lg:text-5xl">
-            From scattered tools to one connected system.
+          <SectionTag color="#00BFFF">The Transformation</SectionTag>
+          <h2 className="mt-5 text-3xl font-extrabold leading-[1.12] tracking-tight text-[#E4E4E7] sm:text-4xl lg:text-5xl">
+            From scattered chaos to one connected system.
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="mt-14 grid gap-6 lg:grid-cols-2">
           <Reveal>
-            <div data-testid="transformation-before" className="h-full rounded-[2rem] border border-rose-100 bg-rose-50/50 p-6 sm:p-8">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-rose-500">Before deepliX</p>
+            <div data-testid="transformation-before" className="h-full rounded-[2rem] border border-rose-500/20 bg-[#1A1315] p-6 sm:p-8">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-rose-400">Before deepliX: Fragmented Ops</p>
               <div className="relative mt-6 h-[340px] sm:h-[380px]">
                 <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden="true">
                   {chaos.map(([d, c], i) => (
-                    <path key={i} d={d} fill="none" stroke={c} strokeWidth="0.5" strokeDasharray="2 2" vectorEffect="non-scaling-stroke" />
+                    <path key={i} d={d} fill="none" stroke={c} strokeWidth="0.8" strokeDasharray="2 2" vectorEffect="non-scaling-stroke" />
                   ))}
                 </svg>
                 {tools.map((t) => (
                   <span
                     key={t.label}
-                    className="absolute flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-600 shadow-soft-sm"
+                    className="absolute flex items-center gap-1.5 rounded-full border border-white/10 bg-[#1E1E1E] px-3 py-1.5 text-xs font-semibold text-[#E4E4E7] shadow-soft-sm"
                     style={{ left: t.x, top: t.y }}
                   >
-                    <t.icon size={13} className="text-slate-400" />
+                    <t.icon size={13} className="text-[#FB7185]" />
                     {t.label}
                   </span>
                 ))}
                 <span className="absolute bottom-1 left-1 font-mono text-[10px] uppercase tracking-[0.2em] text-rose-400">
-                  held together by manual work
+                  held together by error-prone manual work
                 </span>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={0.12}>
-            <div data-testid="transformation-after" className="h-full rounded-[2rem] border border-blue-100 bg-gradient-to-br from-blue-50 via-cyan-50 to-emerald-50 p-6 sm:p-8">
-              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-blue-600">With deepliX</p>
+            <div data-testid="transformation-after" className="h-full rounded-[2rem] border border-[#00BFFF]/30 bg-[#161D26] p-6 sm:p-8 shadow-glow-blue">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.24em] text-[#00BFFF]">With deepliX: Synchronized Infrastructure</p>
               <div className="relative mt-6 pl-2">
-                <span className="absolute bottom-4 left-[27px] top-4 w-px bg-gradient-to-b from-blue-400 via-cyan-400 to-violet-400" aria-hidden="true" />
+                <span className="absolute bottom-4 left-[27px] top-4 w-px bg-gradient-to-b from-[#00BFFF] via-[#06B6D4] to-[#8B5CF6]" aria-hidden="true" />
                 <div className="space-y-4">
                   {flow.map((f, i) => (
                     <div key={f.label} className="relative flex items-center gap-4">
                       <span
-                        className="relative z-10 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border-2 bg-white"
+                        className="relative z-10 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border-2 bg-[#121212]"
                         style={{ borderColor: f.color }}
                       >
                         <span className="h-1.5 w-1.5 rounded-full" style={{ background: f.color }} />
                       </span>
-                      <span className="flex items-center gap-2.5 rounded-full border border-white bg-white/85 px-4 py-2.5 text-sm font-bold text-[#0F172A] shadow-soft-sm backdrop-blur">
+                      <span className="flex items-center gap-2.5 rounded-full border border-white/10 bg-[#1E1E1E] px-4 py-2.5 text-sm font-bold text-[#E4E4E7] shadow-soft-sm backdrop-blur">
                         <f.icon size={15} style={{ color: f.color }} />
                         {f.label}
                       </span>
                       {i === 0 && (
-                        <span className="ml-auto hidden font-mono text-[10px] uppercase tracking-[0.18em] text-blue-500 sm:block">
-                          one direction, no friction
+                        <span className="ml-auto hidden font-mono text-[10px] uppercase tracking-[0.18em] text-[#00BFFF] sm:block">
+                          one direction, zero friction
                         </span>
                       )}
                     </div>
@@ -103,3 +103,4 @@ export const TransformationSection: React.FC = () => {
     </section>
   );
 };
+
