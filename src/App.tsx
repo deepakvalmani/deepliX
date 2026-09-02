@@ -1,180 +1,145 @@
-import { useState, useEffect } from "react";
-import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
-import { HomeView } from "./pages/HomeView";
-import { SolutionsView } from "./pages/SolutionsView";
-import { HowWeWorkView } from "./pages/HowWeWorkView";
-import { AboutView } from "./pages/AboutView";
-import { SystemsLabView } from "./pages/SystemsLabView";
-import { ContactView } from "./pages/ContactView";
-import { AdminView } from "./pages/AdminView";
-import { PrivacyPolicyView } from "./pages/PrivacyPolicyView";
-import { TermsView } from "./pages/TermsView";
-import { CookiePolicyView } from "./pages/CookiePolicyView";
-import { CareersView } from "./pages/CareersView";
-import { CookieBanner } from "./components/CookieBanner";
-import { BlueprintBuilder } from "./components/BlueprintBuilder";
-import { BookingModal } from "./components/BookingModal";
+import React, { useState, useEffect } from 'react';
+import { PageRoute } from './types';
+import { Navbar } from './components/Navbar';
+import { Footer } from './components/Footer';
+import { HomePage } from './pages/HomePage';
+import { SolutionsPage } from './pages/SolutionsPage';
+import { IndustriesPage } from './pages/IndustriesPage';
+import { ClinicIndustryPage } from './pages/ClinicIndustryPage';
+import { SchoolIndustryPage } from './pages/SchoolIndustryPage';
+import { BusinessIndustryPage } from './pages/BusinessIndustryPage';
+import { CaseStudiesPage } from './pages/CaseStudiesPage';
+import { AboutPage } from './pages/AboutPage';
+import { ContactPage } from './pages/ContactPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { CookiePolicyPage } from './pages/CookiePolicyPage';
+import { CookieConsent } from './components/CookieConsent';
 
-// Helper to determine initial view from URL path
-function getViewFromPath(): string {
-  const path = window.location.pathname.replace(/^\/+|\/+$/g, "");
-  if (!path) return "home";
-  const known = [
-    "home",
-    "solutions",
-    "capabilities",
-    "how-we-work",
-    "about",
-    "systems-lab",
-    "blueprint",
-    "careers",
-    "contact",
-    "admin",
-    "privacy",
-    "terms",
-    "cookies",
-  ];
-  return known.includes(path) ? path : "home";
-}
+// Admin Portal Pages
+import { AdminLoginPage } from './pages/admin/AdminLoginPage';
+import { AdminDashboardPage } from './pages/admin/AdminDashboardPage';
+import { AdminInquiriesPage } from './pages/admin/AdminInquiriesPage';
+import { AdminClientsPage } from './pages/admin/AdminClientsPage';
+import { AdminCaseStudiesPage } from './pages/admin/AdminCaseStudiesPage';
+import { AdminSettingsPage } from './pages/admin/AdminSettingsPage';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<string>(() => getViewFromPath());
-  const [initialHash, setInitialHash] = useState<string | undefined>(undefined);
-  const [isBookingOpen, setIsBookingOpen] = useState<boolean>(false);
-  const [attachedBlueprint, setAttachedBlueprint] = useState<{
-    tools: string[];
-    outcomes: string[];
-    diagramSummary: string;
-  } | null>(null);
+  const [currentRoute, setCurrentRoute] = useState<PageRoute>('/');
 
-  // Sync with browser back/forward buttons
+  // Synchronize initial route from URL path or hash if valid
   useEffect(() => {
-    const onPopState = () => {
-      const v = getViewFromPath();
-      setCurrentView(v);
-      setInitialHash(window.location.hash.replace("#", "") || undefined);
+    const handlePopState = () => {
+      const path = window.location.pathname as PageRoute;
+      const validRoutes: PageRoute[] = [
+        '/',
+        '/solutions',
+        '/industries',
+        '/industries/clinics',
+        '/industries/schools',
+        '/industries/business',
+        '/case-studies',
+        '/about',
+        '/contact',
+        '/privacy-policy',
+        '/cookie-policy',
+        '/admin/login',
+        '/admin/dashboard',
+        '/admin/inquiries',
+        '/admin/clients',
+        '/admin/case-studies',
+        '/admin/settings',
+      ];
+      if (validRoutes.includes(path)) {
+        setCurrentRoute(path);
+      } else {
+        setCurrentRoute('/');
+      }
     };
-    window.addEventListener("popstate", onPopState);
-    return () => window.removeEventListener("popstate", onPopState);
+
+    handlePopState();
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const handleNavigate = (view: string, hash?: string) => {
-    let targetView = view;
-    if (view === "capabilities") {
-      targetView = "solutions";
+  const navigateTo = (route: PageRoute) => {
+    setCurrentRoute(route);
+    if (window.location.pathname !== route) {
+      window.history.pushState({}, '', route);
     }
-
-    setCurrentView(targetView);
-    setInitialHash(hash);
-
-    // Update browser URL without reload
-    const newPath = targetView === "home" ? "/" : `/${targetView}`;
-    const newUrl = hash ? `${newPath}#${hash}` : newPath;
-    window.history.pushState({ view: targetView }, "", newUrl);
-
-    if (!hash) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleAttachBlueprint = (data: {
-    tools: string[];
-    outcomes: string[];
-    diagramSummary: string;
-  }) => {
-    setAttachedBlueprint(data);
-    handleNavigate("contact");
+  const isAdminRoute = currentRoute.startsWith('/admin');
+
+  // Render Admin Layout and Views
+  if (isAdminRoute) {
+    if (currentRoute === '/admin/login') {
+      return (
+        <div className="min-h-screen bg-slate-50 text-slate-900 font-sans antialiased selection:bg-[#2563EB] selection:text-white">
+          <AdminLoginPage onNavigate={navigateTo} />
+        </div>
+      );
+    }
+
+    switch (currentRoute) {
+      case '/admin/dashboard':
+        return <AdminDashboardPage onNavigate={navigateTo} />;
+      case '/admin/inquiries':
+        return <AdminInquiriesPage onNavigate={navigateTo} />;
+      case '/admin/clients':
+        return <AdminClientsPage onNavigate={navigateTo} />;
+      case '/admin/case-studies':
+        return <AdminCaseStudiesPage onNavigate={navigateTo} />;
+      case '/admin/settings':
+        return <AdminSettingsPage onNavigate={navigateTo} />;
+      default:
+        return <AdminDashboardPage onNavigate={navigateTo} />;
+    }
+  }
+
+  const renderPage = () => {
+    switch (currentRoute) {
+      case '/solutions':
+        return <SolutionsPage onNavigate={navigateTo} />;
+      case '/industries':
+        return <IndustriesPage onNavigate={navigateTo} />;
+      case '/industries/clinics':
+        return <ClinicIndustryPage onNavigate={navigateTo} />;
+      case '/industries/schools':
+        return <SchoolIndustryPage onNavigate={navigateTo} />;
+      case '/industries/business':
+        return <BusinessIndustryPage onNavigate={navigateTo} />;
+      case '/case-studies':
+        return <CaseStudiesPage onNavigate={navigateTo} />;
+      case '/about':
+        return <AboutPage onNavigate={navigateTo} />;
+      case '/contact':
+        return <ContactPage onNavigate={navigateTo} />;
+      case '/privacy-policy':
+        return <PrivacyPolicyPage onNavigate={navigateTo} />;
+      case '/cookie-policy':
+        return <CookiePolicyPage onNavigate={navigateTo} />;
+      case '/':
+      default:
+        return <HomePage onNavigate={navigateTo} />;
+    }
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#121212] text-[#E4E4E7]">
-      <Navbar
-        currentView={currentView}
-        onNavigate={handleNavigate}
-        onOpenBooking={() => setIsBookingOpen(true)}
-      />
+    <div className="min-h-screen flex flex-col bg-white text-[#0F172A] font-sans antialiased selection:bg-[#2563EB] selection:text-white">
+      {/* Primary Navigation */}
+      <Navbar currentRoute={currentRoute} onNavigate={navigateTo} />
 
-      <main className="flex-1 pt-16">
-        {/* Dedicated Individual Page Routing */}
-        {currentView === "home" && (
-          <HomeView
-            onNavigate={handleNavigate}
-            onOpenBooking={() => setIsBookingOpen(true)}
-          />
-        )}
-
-        {currentView === "solutions" && (
-          <SolutionsView
-            initialHash={initialHash}
-            onNavigate={handleNavigate}
-          />
-        )}
-
-        {currentView === "how-we-work" && (
-          <HowWeWorkView
-            onNavigate={handleNavigate}
-            onOpenBooking={() => setIsBookingOpen(true)}
-          />
-        )}
-
-        {currentView === "about" && (
-          <AboutView
-            onNavigate={handleNavigate}
-            onOpenBooking={() => setIsBookingOpen(true)}
-          />
-        )}
-
-        {currentView === "systems-lab" && (
-          <SystemsLabView onNavigate={handleNavigate} />
-        )}
-
-        {currentView === "blueprint" && (
-          <div className="pt-8">
-            <BlueprintBuilder onAttachToContact={handleAttachBlueprint} />
-          </div>
-        )}
-
-        {currentView === "careers" && (
-          <CareersView onNavigate={handleNavigate} />
-        )}
-
-        {currentView === "admin" && (
-          <AdminView onNavigate={handleNavigate} />
-        )}
-
-        {currentView === "privacy" && (
-          <PrivacyPolicyView onNavigate={handleNavigate} />
-        )}
-
-        {currentView === "terms" && (
-          <TermsView onNavigate={handleNavigate} />
-        )}
-
-        {currentView === "cookies" && (
-          <CookiePolicyView onNavigate={handleNavigate} />
-        )}
-
-        {currentView === "contact" && (
-          <ContactView
-            initialBlueprint={attachedBlueprint}
-            onOpenBooking={() => setIsBookingOpen(true)}
-          />
-        )}
+      {/* Main Content Area */}
+      <main className="grow">
+        {renderPage()}
       </main>
 
-      <Footer
-        onNavigate={handleNavigate}
-        onOpenBooking={() => setIsBookingOpen(true)}
-      />
+      {/* Global Footer */}
+      <Footer onNavigate={navigateTo} />
 
-      {/* Global Booking Modal with Instant Calendly integration */}
-      <BookingModal
-        isOpen={isBookingOpen}
-        onClose={() => setIsBookingOpen(false)}
-      />
-
-      <CookieBanner onNavigate={handleNavigate} />
+      {/* GDPR / Cookie Banner */}
+      <CookieConsent onNavigate={navigateTo} />
     </div>
   );
 }
