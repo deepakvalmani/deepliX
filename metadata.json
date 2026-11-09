@@ -1,6 +1,0 @@
-{
-  "name": "DeepliX - Digital Systems for Growing Businesses",
-  "description": "DeepliX designs and builds customized software systems for clinics, schools, and businesses — helping replace manual processes with organized, reliable solutions.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

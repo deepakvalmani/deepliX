@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Hexagonal network icon -->
+  <polygon points="32,2 57.98,17 57.98,47 32,62 6.02,47 6.02,17" stroke="#0b6e69" stroke-width="2.5" fill="none"/>
+  <line x1="32" y1="32" x2="32" y2="2" stroke="#0b6e69" stroke-width="1.8" opacity="0.6"/>
+  <line x1="32" y1="32" x2="57.98" y2="17" stroke="#0b6e69" stroke-width="1.8" opacity="0.6"/>
+  <line x1="32" y1="32" x2="57.98" y2="47" stroke="#0b6e69" stroke-width="1.8" opacity="0.6"/>
+  <line x1="32" y1="32" x2="32" y2="62" stroke="#0b6e69" stroke-width="1.8" opacity="0.6"/>
+  <line x1="32" y1="32" x2="6.02" y2="47" stroke="#0b6e69" stroke-width="1.8" opacity="0.6"/>
+  <line x1="32" y1="32" x2="6.02" y2="17" stroke="#0b6e69" stroke-width="1.8" opacity="0.6"/>
+  <line x1="32" y1="2" x2="57.98" y2="47" stroke="#0b6e69" stroke-width="1.2" opacity="0.3"/>
+  <line x1="57.98" y1="17" x2="6.02" y2="47" stroke="#0b6e69" stroke-width="1.2" opacity="0.3"/>
+  <line x1="57.98" y1="47" x2="6.02" y2="17" stroke="#0b6e69" stroke-width="1.2" opacity="0.3"/>
+  <line x1="32" y1="62" x2="6.02" y2="17" stroke="#0b6e69" stroke-width="1.2" opacity="0.3"/>
+  <line x1="6.02" y1="47" x2="32" y2="2" stroke="#0b6e69" stroke-width="1.2" opacity="0.3"/>
+  <circle cx="32" cy="2" r="4" fill="#0b6e69"/>
+  <circle cx="57.98" cy="17" r="4" fill="#0b6e69"/>
+  <circle cx="57.98" cy="47" r="4" fill="#0b6e69"/>
+  <circle cx="32" cy="62" r="4" fill="#0b6e69"/>
+  <circle cx="6.02" cy="47" r="4" fill="#0b6e69"/>
+  <circle cx="6.02" cy="17" r="4" fill="#0b6e69"/>
+  <circle cx="32" cy="32" r="5" fill="#0b6e69"/>
+</svg>
